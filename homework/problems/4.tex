@@ -1,0 +1,76 @@
+\begin{problem}[问题4]
+分析对流方程的Warming-Beam差分格式的精度和稳定性.
+\begin{eqnarray}
+u_j^{\overline{n+1}} &=& u_j^n - r\big(u_j^n-u_{j-1}^n\big)\nonumber\\
+u_j^{n+1} &=& \frac{1}{2}\big(u_j^n+u_j^{\overline{n+1}} \big)
+-\frac{1}{2}r\Big[
+\big(u_j^n-2u_{j-1}^n + u_{j-2}^n\big)
++ \big( u_j^{\overline{n+1}} - u_{j-1}^{\overline{n+1}}\big)
+\Big]\nonumber
+\end{eqnarray}
+\end{problem}
+
+\begin{solution}
+\textbf{精度分析:} 将$u_{j}^{n+1}$, $u_{j-1}^{n}$, $u_{j-2}^{n}$分别在$u=u_{j}^{n}$展开成泰勒级数
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray}
+u_{j}^{n+1} & = & u_{j}^{n}+\frac{\partial u}{\partial t}\Delta t+\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta t^{2}+\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{3}+O(\Delta t^{4})\label{eq:ujn+1}\\
+u_{j-1}^{n} & = & u_{j}^{n}-\frac{\partial u}{\partial x}\Delta x+\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x^{2}-\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{3}+O(\Delta x^{4})\label{eq:ujn-1}\\
+u_{j-2}^{n} & = & u_{j}^{n}-\frac{\partial u}{\partial x}2\Delta x+\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}(2\Delta x)^{2}-\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}(2\Delta x)^{3}+O(\Delta x^{4})\label{eq:uj-2n}
+\end{eqnarray}}
+将题中第一式代入第二式得
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray}
+u_{j}^{n+1} & = & \frac{1}{2}\Big[u_{j}^{n}+u_{j}^{n}-r\big(u_{j}^{n}-u_{j-1}^{n}\big)\Big]-\frac{1}{2}r\Big[\big(u_{j}^{n}-2u_{j-1}^{n}+u_{j-2}^{n}\big)+\nonumber\\
+ &  & \hphantom{\frac{1}{2}\bigg[u_{j}^{n}+u_{j}^{n}-r}+u_{j}^{n}-r\big(u_{j}^{n}-u_{j-1}^{n}\big)-u_{j-1}^{n}+r\big(u_{j-1}^{n}-u_{j-2}^{n}\big)\Big]\nonumber\\
+ & = & u_{j}^{n}-r(u_{j}^{n}-u_{j-1}^{n})-\frac{1}{2}r(1-r)\big(u_{j}^{n}-2u_{j-1}^{n}+u_{j-2}^{n}\big)\label{eq:ujn+1=}
+\end{eqnarray}}
+其中$r=a\frac{\Delta t}{\Delta x}$, 将$u_{j}^{n+1}$, $u_{j-1}^{n}$,
+$u_{j-2}^{n}$的泰勒展开代入上式, 并注意到\textcolor{red}{$\frac{\partial^{2}u}{\partial t^{2}}-a^{2}\frac{\partial^{2}u}{\partial x^{2}}=0$}:
+\begin{eqnarray*}
+ &  & \frac{u_{j}^{n+1}-u_{j}^{n}}{\Delta t}+a\frac{u_{j}^{n}-u_{j-1}^{n}}{\Delta x}+\frac{a}{2}(\Delta x-a\Delta t)\frac{u_{j}^{n}-2u_{j-1}^{n}+u_{j-2}^{n}}{\Delta x\Delta x}\\
+ & = & \textcolor{DarkGreen}{\frac{\partial u}{\partial t}}+\textcolor{red}{\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta t}+\textcolor{DarkGreen}{\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{2}}+O(\Delta t^{3})+\textcolor{DarkGreen}{a\frac{\partial u}{\partial x}}\textcolor{magenta}{-\frac{a}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x}+
+\textcolor{blue}{\frac{a}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{2}}
+ +O(\Delta x^{3})+\\
+ &  & \hphantom{\frac{\partial u}{\partial t}}
+ +\frac{a}{2}\bigg(\textcolor{magenta}{\frac{\partial^{2}u}{\partial x^{2}}\Delta x}\textcolor{blue}{-\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{2}}+O(\Delta x^{3})\bigg)
+ -\frac{a^2}{2}\bigg(\textcolor{red}{\frac{\partial^{2}u}{\partial x^{2}}\Delta t}\textcolor{DarkGreen}{-\frac{\partial^{3}u}{\partial x^{3}}\Delta x\Delta t}+O(\Delta x^{2}\Delta t)\bigg)\\
+ & = & \textcolor{DarkGreen}{\frac{\partial u}{\partial t}}+\textcolor{DarkGreen}{\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{2}}+\textcolor{DarkGreen}{a\frac{\partial u}{\partial x}}\textcolor{blue}{-\frac{a}{3}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{2}}+\textcolor{DarkGreen}{\frac{a^{2}}{2}\frac{\partial^{3}u}{\partial x^{3}}\Delta x\Delta t}+O(\Delta t^{3},\Delta x^{3},\Delta x^{2}\Delta t)\\
+ & = & \frac{\partial u}{\partial t}+a\frac{\partial u}{\partial x}+O(\Delta t^{2},\Delta x^{2},\Delta t\Delta x)
+\end{eqnarray*}
+因此该差分格式在时间和空间上都是二阶精度.
+
+\vspace{1em}
+\noindent\textbf{稳定性分析:} 对差分方程中的各项作Fourier展开
+$u_{j}^{n}=\sum_{k=1}^{\infty}\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}$
+%u_{j-1}^{n}=\sum_{k=1}^{\infty}\hat{u}_{j-1}^{n+1}\mathrm{e}^{\mathrm{i}(j-1)k\Delta x},\:
+%u_{j-1\pm 1}^{n}=\sum_{k=1}^{\infty}\hat{u}_{j-1\pm1}^{n+1}\mathrm{e}^{\mathrm{i}(j-1\pm1)k\Delta x}
+并代入式(\ref{eq:ujn+1=})得到它的每个分量的误差方程:
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+\hat{u}_{j}^{n+1}\mathrm{e}^{\mathrm{i}jk\Delta x} & = & \hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}-r(\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}-\hat{u}_{j-1}^{n}\mathrm{e}^{\mathrm{i}(j-1)k\Delta x})\\
+ &  & \hphantom{\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}}-\frac{1}{2}r(1-r)\big(\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}-2\hat{u}_{j-1}^{n}\mathrm{e}^{\mathrm{i}(j-1)k\Delta x}+\hat{u}_{j-2}^{n}\mathrm{e}^{\mathrm{i}(j-2)k\Delta x}\big)
+\end{eqnarray*}}
+放大因子为$G=\hat{u}_{j}^{n+1}/\hat{u}_{j}^{n}$, 则上式可化为
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+G & = & 1-r(1-\mathrm{e}^{-\mathrm{i}jk\Delta x})-\frac{1}{2}r(1-r)\big(1-2\mathrm{e}^{-\mathrm{i}jk\Delta x}+\mathrm{e}^{-2\mathrm{i}k\Delta x}\big)\\
+ & = & 1-r(1-\mathrm{e}^{-\mathrm{i}jk\Delta x})-\frac{1}{2}r(1-r)\big(1-\mathrm{e}^{-\mathrm{i}jk\Delta x}\big)^{2}\\
+ & = & 1-rz-\frac{1}{2}r(1-r)z^{2}
+\end{eqnarray*}}
+其中$z=1-\mathrm{e}^{-\mathrm{i}jk\Delta x}=1-\cos\theta+\mathrm{i}\sin\theta$.
+注意到$z\bar{z}=z+\bar{z}=2(1-\cos\theta)=2s$, 其中$0\leq s\leq2$. 则有
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+|G|^{2} & = & G\bar{G}=\Big[1-rz-\frac{1}{2}r(1-r)z^{2}\Big]\Big[1-r\bar{z}-\frac{1}{2}r(1-r)\bar{z}^{2}\Big]\\
+ & = & 1\textcolor{red}{-rz}\textcolor{blue}{-\frac{1}{2}r(1-r)z^{2}}\qquad
+       \textcolor{red}{-r\bar{z}}+r^{2}z\bar{z}+\textcolor{DarkGreen}{\frac{1}{2}r^2(1-r)z^{2}\bar{z}}\\
+ &  & \hphantom{1-rz-\frac{1}{2}r(1-r)z^{2}\qquad}
+ \textcolor{blue}{-\frac{1}{2}r(1-r)\bar{z}^{2}}+\textcolor{DarkGreen}{\frac{1}{2}r^{2}(1-r)\bar{z}^{2}z}+\frac{1}{4}r^{2}(1-r)^{2}(z\bar{z})^{2}\\
+ & = & 1\textcolor{red}{-r(z+\bar{z})}\textcolor{blue}{-\frac{1}{2}r(1-r)(z^{2}+\bar{z}^{2})}+r^{2}z\bar{z}+\textcolor{DarkGreen}{\frac{1}{2}r^{2}(1-r)z\bar{z}(z+\bar{z})}+\frac{1}{4}r^{2}(1-r)^{2}(z\bar{z})^{2}\\
+ & = & 1-2rs-2r(1-r)\big(s^{2}-s\big)+2r^{2}s+2r^{2}(1-r)s^{2}+r^{2}(1-r)^{2}s^{2}\\
+ & = & 1-2r(1-(1-r)-r)s+r(1-r)(-2+3r-r^{2})s^{2}\\
+ & = & 1-r(1-r)^{2}(2-r)s^{2}
+\end{eqnarray*}}
+显然当$0<r=a\frac{\Delta t}{\Delta x}\leq2$时$|G|\leq1$, 此时差分格式是稳定的.
+\end{solution} 

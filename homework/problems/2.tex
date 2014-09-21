@@ -1,0 +1,125 @@
+\begin{problem}[问题2]
+一维非定常粘性流动N-S方程组
+\[
+\mathbf{u_t} + \mathbf{f_x} = \mathbf{s_x}
+\]
+其中
+\[
+\mathbf{u} =
+\left[
+  \begin{array}{c}
+    \rho \\
+    \rho u\\
+    E \\
+  \end{array}
+\right], ~~
+\mathbf{f} =
+\left[
+  \begin{array}{c}
+    \rho u \\
+    \rho u^2 + p \\
+    u(E+p) \\
+  \end{array}
+\right],~~
+\mathbf{s} =
+\left[
+  \begin{array}{c}
+    0 \\
+    \frac{4}{3}\frac{\mu}{\textrm{Re}}\frac{\partial u}{\partial x} \\
+    \frac{4}{3}\frac{\mu u}{\textrm{Re}}\frac{\partial u}{\partial x} + \frac{c_pK}{\textrm{Pr}~\textrm{Re}}\frac{\partial T}{\partial x} \\
+  \end{array}
+\right]
+\]
+这里的状态方程为:
+\[
+p = (\gamma -1)\rho e = (\gamma - 1)\Big(E-\frac{1}{2}\rho u^2\Big)
+\]
+求出该方程组的特征根, 并分析它的数学性质和类型.
+\end{problem}
+
+\begin{solution}
+由状态方程可得
+\[
+E=c_{v}T+\frac{1}{2}\rho u^{2},\: u(E+p)=u\Big(c_{p} T+\frac{1}{2}\rho u^{2}\Big)
+\]
+因此上述守恒型方程组可改写成非守恒型方程组, 并消去能量和压强消项:
+\[
+\textcolor{red}{\frac{\partial\rho}{\partial t}}
++\textcolor{blue}{u\frac{\partial\rho}{\partial x}}
++\textcolor{DarkGreen}{\rho\frac{\partial u}{\partial x}} = 0
+\]
+\[
+\textcolor{red}{\frac{\partial u}{\partial t}}
++\textcolor{DarkGreen}{u\frac{\partial u}{\partial x}}
++\textcolor{blue}{\frac{(c_p-c_v)}{\rho}\frac{\partial T}{\partial x}}
+=\textcolor{blue}{\frac{4}{3}\frac{\mu}{\rho\textrm{Re}}\frac{\partial}{\partial x}\Big(\frac{\partial u}{\partial x}\Big)}
+\]
+\begin{multline}
+\textcolor{red}{c_{v}\frac{\partial T}{\partial t}}
++\textcolor{DarkGreen}{\rho u\frac{\partial u}{\partial t}}
++\textcolor{DarkGreen}{\frac{1}{2}u^{2}\frac{\partial\rho}{\partial t}}
++\textcolor{DarkGreen}{c_{p} u\frac{\partial T}{\partial x}}
++\textcolor{DarkGreen}{c_{p} T\frac{\partial u}{\partial x}}
++\textcolor{DarkGreen}{\frac{1}{2}u^{3}\frac{\partial\rho}{\partial x}}
++\textcolor{DarkGreen}{\frac{3}{2}\rho u^{2}\frac{\partial u}{\partial x}}\\
+\left. =
+\textcolor{DarkGreen}{\frac{4}{3}\frac{\mu}{\textrm{Re}}\Big(\frac{\partial u}{\partial x}\Big)^{2}}
++\textcolor{DarkGreen}{\frac{4}{3}\frac{\mu}{\textrm{Re}}u\frac{\partial}{\partial x}\Big(\frac{\partial u}{\partial x}\Big)}+
+\textcolor{blue}{\frac{c_{p}}{\textrm{Pr}}\frac{K}{\textrm{Re}}\frac{\partial}{\partial x}\Big(\frac{\partial T}{\partial x}\Big)}\right.\nonumber
+\end{multline}
+对上述非守恒型方程组进行适当变换, 令
+\[
+\frac{\partial u}{\partial x} = u_x, ~~ \frac{\partial T}{\partial x} = T_x
+\]
+可简化为下式
+\[
+\mathbf{A}\frac{\partial \mathbf{Z}}{\partial t} + \mathbf{B}\frac{\partial \mathbf{z}}{\partial x} = \mathbf{H}
+\]
+其中
+\[
+\mathbf{\mathbf{Z}}=[\rho\: u\: T\: u_{x}\: T_{x}]^{\textrm{T}}
+\]
+\[
+A=\left[
+\begin{array}{ccccc}
+\textcolor{red}{1} & 0 & 0 & 0 & 0\\
+0 & \textcolor{red}{1} & 0 & 0 & 0\\
+0 & 0 & \textcolor{red}{c_{v}} & 0 & 0\\
+0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0
+\end{array}
+\right]
+\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\: \:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:
+B=\left[
+\begin{array}{ccccc}
+\textcolor{blue}{u} & 0 & 0 & 0 & 0\\
+0 & 0 & \scriptstyle \textcolor{blue}{\frac{(c_{p}-c_{v})}{\rho}} & \scriptstyle \textcolor{blue}{\frac{-4\mu}{3\rho\textrm{Re}}} & 0\\
+0 & 0 & 0 & 0 & \scriptstyle\textcolor{blue}{\frac{-c_{p}K}{\textrm{Pr\textrm{Re}}}}\\
+0 & 1 & 0 & 0 & 0\\
+0 & 0 & 1 & 0 & 0
+\end{array}
+\right]
+\]
+\[
+H=\left[\textcolor{DarkGreen}{
+\begin{array}{c}
+-\rho u_{x}\\
+-uu_{x}\\
+\frac{4}{3}\frac{\mu}{\textrm{Re}}(u_{x}^{2}+u_{xx})-\frac{3}{2}\rho u^{2}u_{x}-\frac{1}{2}u^{3}\rho_{x}-c_{p}(Tu_{x}+uT_{x})-\rho uu_{t}-\frac{1}{2}u^{2}\rho_{t}\\
+u_{x}\\
+T_{x}
+\end{array}}
+\right]
+\]
+系数矩阵的特征方程为
+\[
+\textrm{det}(\sigma_1 \mathbf{A} + \sigma_2 \mathbf{B}) = 0
+\Rightarrow
+(u\sigma_2+\sigma_1)\sigma_2^4=0
+\]
+它的特征根为:
+\[
+\lambda_1=u, ~~\lambda_{2,3,4,5} = 0
+\]
+除实根$\lambda_1$外, 其它均是重根. 由此可知, 该方程组是抛物型的, 但也具有双曲型性质. 从总体上说, 它是抛物型的.
+\end{solution} 

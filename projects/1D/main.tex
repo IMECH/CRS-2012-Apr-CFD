@@ -1,0 +1,400 @@
+\documentclass[a4paper,boxed]{caspset}
+
+% set 1-inch margins in the document
+%\usepackage[left=1in,right=1in,top=1.2in,bottom=1in]{geometry}
+\usepackage[left=1in,right=1in,top=1.2in,bottom=1in]{geometry}
+\usepackage{animate}
+\usepackage{lastpage}
+\usepackage{geometry}
+% include this if you want to import graphics files with /includegraphics
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{soul}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{ifthen}
+\usepackage[procnames]{listings}
+\usepackage{multimedia}
+\usepackage[toc,page,title,titletoc,header]{appendix}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{attachfile2}
+\usepackage{pgfplots}
+\usetikzlibrary{%
+    decorations.pathreplacing,%
+    decorations.pathmorphing,arrows
+}
+\usetikzlibrary{calc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xeCJK}
+%\usepackage{fontspec}
+\setCJKmainfont[BoldFont=simhei.ttf]{simsun.ttf}
+%\setCJKsansfont{simhei.ttf}
+%\setCJKmonofont{simfang.ttf}
+
+%\setCJKmainfont{Adobe Song Std}
+%\setCJKmainfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\graphicspath{{figures/}}
+
+\setulcolor{red}
+
+\setlength{\marginparwidth}{1in}
+
+\newcommand{\hmwkTitle}{高等计算流体力学}
+\newcommand{\hmwkSubTitle}{高等计算流体力学课程家庭作业题(A2)}
+\newcommand{\hmwkDueDate}{\today}
+\newcommand{\hmwkClass}{物理学院}
+\newcommand{\hmwkClassTime}{Tue/Thu.{~}09:50}
+\newcommand{\hmwkClassInstructor}{张德良}
+\newcommand{\hmwkAuthorName}{周吕文}
+
+%% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\chead{\hmwkClass\ (\hmwkClassInstructor): \hmwkTitle}  %
+\rhead{第\ \thepage\ 页,{~} 共\ \protect\pageref{LastPage} 页}          %                                %
+\definecolor{DarkGreen}{rgb}{0.0,0.45,0.0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypersetup{pdfauthor={\hmwkAuthorName}, 
+            pdftitle={一维激波管问题的数值计算}, 
+            pdfsubject={\hmwkTitle, \hmwkClassInstructor},
+            pdfkeywords={高等计算流体, 一维激波管, Riemann},
+            pdfproducer={XeLateX with hyperref},
+            pdfcreator={Xelatex}}
+
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\renewcommand\refname{\bf\large 参考文献}
+\renewcommand\contentsname{\bf 目 \ \ \ 录}
+\renewcommand\figurename{\bf 图}
+\renewcommand\tablename{\bf 表}
+\renewcommand{\appendixtocname}{附录}
+\renewcommand{\appendixpagename}{附录}
+\renewcommand\listfigurename{图目录}
+
+\name{周吕文{~}201128000718065}
+\class{物理学院{~}20110308班}
+\assignment{计算报告}
+\duedate{4/15/2012}
+
+\newcommand\invisiblesection[1]{%
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}}
+
+\newcommand\invisiblesubsection[1]{%
+  \refstepcounter{subsection}%
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}%
+  \subsectionmark{#1}}
+
+
+\newcommand{\matlabscript}[2]
+{\definecolor{MyDarkGreen}{rgb}{0.0,0.3,0.0}
+\definecolor{hellgelb}{rgb}{0.96,0.96,0.96}
+\definecolor{DarkPurple}{rgb}{0.6,0,0.4}
+    \lstset{%
+       language=Matlab,                        % Use MATLAB
+        frame=single,                           % Single frame around code
+        basicstyle=\footnotesize\ttfamily,    
+        keywordstyle=[1]\color{blue}, 
+        keywordstyle=[2]\color{DarkPurple}, 
+        keywordstyle=[3]\color{blue}\underbar, 
+        identifierstyle=,  
+        commentstyle=\color{MyDarkGreen}\footnotesize,
+        stringstyle=\color{DarkPurple}, 
+        showstringspaces=false,            
+        tabsize=5,     
+        morekeywords={xlim,ylim,var,alpha,factorial,poissrnd,normpdf,normcdf},
+        morekeywords=[2]{on, off, interp},
+        morecomment=[l][\color{blue}]{...},    
+     columns=fixed,
+     tabsize=4,%
+     numbers=left,                           % Line numbers on left
+     firstnumber=1,                          % Line numbers start with line 1
+     numberstyle=\tiny\color{Blue},          % Line numbers are blue
+     stepnumber=5,                            % Line numbers go in steps of 5
+framexleftmargin=1mm, framextopmargin=1mm, frame=shadowbox
+    }
+\lstinputlisting[caption=#2]{#1.m}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This gives syntax highlighting in the python environment
+\newcommand{\fortranscript}[2]
+{
+\definecolor{gray}{gray}{0.4}
+\definecolor{key}{rgb}{0.3,1,0.3}
+\lstset{
+language=[90]fortran,
+basicstyle=\ttfamily,
+%otherkeywords={1, 2, 3, 4, 5, 6, 7, 8 ,9 , 0, -, =, +, [, ], (, ), \{, \}, :, *, !},
+keywordstyle=\color{blue},
+stringstyle=\color{red},
+showstringspaces=false,
+        numbers=left,                           % Line numbers on left
+        firstnumber=1,                          % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue},          % Line numbers are blue
+        stepnumber=5,                            % Line numbers go in steps of 5
+commentstyle=\color{gray},%\slshape,
+framexleftmargin=1mm, framextopmargin=1mm, frame=shadowbox
+}
+\lstinputlisting[caption=#2]{#1.f90}
+}
+\begin{document}
+\problemlist{\LARGE 一维激波管问题的数值计算}
+
+\section{引言}
+激波管是一根两端封闭, 中间用一薄膜隔开成两部分的柱形长管, 薄膜两侧分别充满低压和高压气体. 薄膜瞬时突然破裂, 气体将从高压端冲向低压端, 同时在管内形成激波, 稀疏波和接触间断等复杂波系.
+
+历史上第一根激波管是由法国化学家P.维埃耶在19世纪末为研究矿井中的爆炸制成. ``激波管''一词最早出现在1946年美国W.布利克尼的研究报告中. 激波管早期主要应用于燃烧, 爆炸和非定常波运动的研究以及压力传感器的标定等. 1950年以来, 由于研制洲际导弹和核武器的需要, 激波管得到了蓬勃发展. 激波管结构简单, 使用方便而且价格低廉, 能提供范围宽广的实验参量, 因此得到广泛的应用. 例如, 在空气动力学, 气体物理学, 化学动力学和航空声学的研究中都广泛地使用激波管. 近来, 激波管又开始在气体激光, 环境科学和能源科学的研究中发挥作用. 为满足导弹, 核武器等的发展需要, 研制出了多种多样的激波管, 并产生了诸如激波风洞等多种新型实验装置.
+
+\section{一维激波管问题}
+一维激波管问题, 又称一维Riemann问题, 是一个非常经典的算例. 其中包括激波, 膨胀波, 接触间断等典型的物理现象, 如图\ref{1DRiemann}所示.
+\begin{figure}[!htb]
+\centering
+%\includegraphics[width=0.6\textwidth]{./fig/tube.pdf}
+\input{./figures/riemann.tikz}
+\caption{\label{1DRiemann}一维Riemann问题示意图}
+\end{figure}
+在$t=0$时, 由一隔膜两侧气体静止, 但压力, 密度不同. 在本文中隔膜两侧气体的压力, 密度分别为
+\[
+\begin{array}{ccc}
+  \rho_1 = 0.125 & p_1 = 1.0 & u_1 = 0 \\
+  \rho_2 = 1.000 & p_2 = 1.0 & u_2 = 0
+\end{array}
+\]
+其中, $\rho$, $p$, $u$均为无量纲量. 在$t=0$时刻, 隔膜瞬时突然破裂, 左侧高压气体开始向右侧流动, 在右侧形成激波$OS$, 在左侧的$OL$和$OT$之间形成膨胀波, 其中$OL$为膨胀波的前缘, $OT$为膨胀波的后缘. 在激波和膨胀波之间有一接触间断$OC$, 即在$OC$两侧, 气体的压力, 速度相等, 但密度不同.
+
+\section{物理模型}
+设一维激波管问题中气体是理想气体. 一维激波管问题在数学上可以用一维可压缩无黏气体Euler方程组来描述. 在在直角坐标系下无量纲的一维Euler方程组为:
+\begin{equation}\label{Eulerequation}
+\frac{\partial \mathbf{w}}{\partial t}+\frac{\partial \mathbf{f}}{\partial x} = 0,\: 0\leq x\leq 1.0
+\end{equation}
+其中
+\[
+\mathbf{w} = \left[
+  \begin{array}{c}
+    \rho \\
+    \rho u \\
+    E \\
+  \end{array}
+\right],\:\:
+\mathbf{f} = \left[
+  \begin{array}{c}
+    \rho u \\
+    \rho u^2 + p \\
+    (E+p)u \\
+  \end{array}
+\right]
+\]
+这里$\rho$是流体的密度, $u$是流体的速度, $p$是流体的压力, $E$是流体单位体积总能:
+\[
+E = \bigg(e+\frac{1}{2}u^2\bigg)
+\]
+其中e为比内能(单位质量物质的内能), 对于理想气体有
+\[
+e=\frac{p}{(\gamma -1)\rho}\:\Longrightarrow\:p=(\gamma-1)\rho e=(\gamma-1)\Big[E-\frac{1}{2}\rho u^2\Big]
+\]
+对于理想气体, 式(\ref{Eulerequation})的Jacobian系数矩阵为
+\[
+\mathbf{A} = \left[
+      \begin{array}{ccc}
+        0 & 1 & 0 \\
+        \frac{1}{2}(\gamma-3)u^3 & (3-\gamma)u & \gamma-1 \\
+        u\big(\frac{1}{2}(\gamma-1)u^2-H\big) & H-(\gamma-1)u^2 & \gamma u \\
+      \end{array}
+    \right]
+\]
+其中$H$为总比焓$H=\frac{H+p}{\rho}=\frac{c^2}{\gamma-1}+\frac{1}{2}u^2$. 声速为
+\[
+c=\sqrt{\frac{\gamma p}{\rho}}=\sqrt{\frac{\gamma}{\rho}(\gamma-1)(E-\frac{1}{2}\rho u^2)}
+\]
+矩阵$\mathbf{A}$的特征值为
+\[
+\lambda_1 = u - c, \: \: \: \: \: \: \lambda_2 = u, \: \: \: \: \: \:\lambda_3 = u + c
+\]
+对应的特征向量为
+\[
+\mathbf{e_1} = \left[
+                 \begin{array}{c}
+                   1 \\
+                   u-c \\
+                   H-uc \\
+                 \end{array}
+               \right], \:\:
+\mathbf{e_2} = \left[
+                 \begin{array}{c}
+                   1 \\
+                   u \\
+                   \frac{1}{2}u^2 \\
+                 \end{array}
+               \right], \:\:
+\mathbf{e_3} = \left[
+                 \begin{array}{c}
+                   1 \\
+                   u+c \\
+                   H+uc \\
+                 \end{array}
+               \right]
+\]
+
+一维Riemann问题具有精确解. 因此可以用精确解来校验本文后面的数值算法的正确性和精确度.
+对于本文的具体问题
+\begin{itemize}
+\item 初始条件: $\rho(x>0.5) = 0.125$, $p(x>0.5) = 1.0$, $u(x>0.5) = 0$;
+  $\rho(x<0.5) = 1.0$, $p(x<0.5) = 1.0$, $u(x<0.5) = 0$.
+\item 边界条件: 在$x=0$和$x=1$处为反射边界条件, $u(x=0)=u(x=1)=0$.
+\end{itemize}
+这个具体的算例在时间$t=0.20$的精确如图\ref{exact}所示.
+\begin{figure}[!htb]
+\centering
+%\includegraphics[width=0.644\textwidth]{./fig/exact.pdf}
+\input{./figures/riemann-exact.tikz}
+\caption{\label{exact}一维激波管问题在$t=0.20$时的精确解: 密度$\rho$, 压强$p$, 速度$u$空间分布}
+\end{figure}
+
+\section{计算方案}
+为得到一维激波管问题的数值解, 本文分别用两种差分格式对式(\ref{Eulerequation})进行逼近. 本文要讨论的第一种差分格是Lax差分格式, 它在时间和空间上都是一阶精度; 本文要讨论的第二种差分格式是蛙跳差分格式. 它在时间和空间上都是二阶精度.
+\subsection{Lax差分格式}
+Lax差分格式是计算流体力学中提出和应用最早的, 非常著名的守恒型差分格式. 它在计算流体力学发展初期得到广泛应用, 在历史上曾起过十分重要的作用. Lax单步差分格式的差分方程为
+\[
+\mathbf{w}_{j}^{n+1}=\frac{1}{2}\big(\mathbf{w}_{j+1}^{n}+\mathbf{w}_{j-1}^{n}\big)-\frac{1}{2}r\big(\mathbf{f}_{j+1}^{n}-\mathbf{f}_{j-1}^{n}\big)
+\]
+其中$r=\Delta t/\Delta x$. 将上式作简单变型
+\[
+\mathbf{w}_{j}^{n+1} = \mathbf{w}_{j}^{n}
+- \frac{\Delta t}{\Delta x} \frac{\mathbf{f}_{j+1}^{n}-\mathbf{f}_{j-1}^{n}}{2}
++\frac{1}{2}\big(\mathbf{w}_{j+1}^{n} -2 \mathbf{w}_{j}^{n}- \mathbf{w}_{j-1}^{n}\big)
+\]
+实际上, 上式等同于以下微分方程
+\[
+\frac{\partial\mathbf{w}}{\partial t} + \frac{\mathbf{f}}{\partial x} =
+-\frac{1}{2}\frac{\partial^2 w}{\partial t^2}\Delta t
++ \frac{1}{2}\frac{\partial^2 w}{\partial x^2}
+\frac{\Delta x^2}{\Delta t} +O(\Delta t^2, \Delta x^2)
+\]
+截断误差为$O(\Delta t, \Delta x^2/\Delta t)$. 在时间和空间上都是一阶精度. Lax差分格式是一个非线性守恒型差分格式. 对它进行线性化后, 可得到它的稳定性条件$|\mathbf{w}|_{\max}\Delta t/\Delta x\leq 1$.
+
+以往计算实践表明, 由于Lax差分格式的黏性较大, 计算精度不高, 在计算激波时, 激波会被拉宽和抹平, 一般都不采用Lax差分格式计算激波.
+
+\subsection{蛙跳差分格式}
+
+蛙跳差分格式在时间方向和空间方向都用中心差分. 其差分方程为
+\[
+\mathbf{w}_{j}^{n+1}= \mathbf{w}_{j}^{n-1} - r\big(\mathbf{f}_{j+1}^{n}-\mathbf{f}_{j-1}^{n}\big)
+\]
+其中$r=\Delta t/\Delta x$. 通过代入各项的泰勒展开可得
+\[
+\frac{\partial\mathbf{w}}{\partial t} + \frac{\mathbf{f}}{\partial x} =
+-\frac{1}{6}\Big(\frac{\partial^3\mathbf{w}}{\partial t^3}\Delta t^2+\frac{\partial^3\mathbf{f}}{\partial x^3}\Delta x^2\Big) + O(\Delta t^4, \Delta x^4)
+\]
+截断误差为$O(\Delta t^2, \Delta x^2)$, 蛙跳差分格式在时间和空间上都是二阶精度.
+从截断误差可以看出蛙跳差分格式没有耗散项,即零耗散, 但却存在较强的色散作用.
+
+蛙跳格式是一个时间方向三层的格式. 在计算中, 需要知道0,1两个时间步的初值. 因此, 在初始时刻需要估算出第一个步的结果, 本文用Lax估出一步的结果, 再采用蛙跳差分格式对初始状态和第一步结果进行迭代.
+
+\subsection{人工黏性滤波方法}
+上面讨论的两种差分格式: Lax在时间和空间上都是一阶精度, 具有数值耗散效应, 因此不用添加人工粘性; 蛙跳差分格式在时间和空间上都是二阶精度, 零耗散, 却存在较强的色散作用. 在用蛙跳差分格式对一维激波的计算中, 发现该格式非常不稳定, 因此在计算激波时, 必须采用人工黏性滤波方法:
+\[
+\overline{\mathbf{w}}_{j}^n = \mathbf{w}_{j}^n + \frac{1}{2}\eta\big(\mathbf{w}_{j+1}^n - 2\mathbf{w}_{j}^n + \mathbf{w}_{j-1}^n\big)
+\]
+为了在激波附近人工黏性起作用, 而在光滑区域人工黏性为零, 需要引入一个与密度(或者压力)相关的开关函数:
+\[
+\textrm{sw} = \bigg|
+\frac{|\rho_{i+1}-\rho_i| - |\rho_{i  }-\rho_{i-1}|}
+     {|\rho_{i+1}-\rho_i| + |\rho_{i  }-\rho_{i-1}|}
+\bigg|
+\]
+从上式可以看出, 在光滑区域, 密度变化很缓, 因此$\textrm{sw}$值也很小; 而在激波附近密度变化很陡, 值就很大. 带有开关函数的前置人工黏性滤波方法为:
+\[
+\overline{\mathbf{w}}_{j}^n = \mathbf{w}_{j}^n + \frac{1}{2}\eta\cdot\textrm{sw}\cdot\big(\mathbf{w}_{j+1}^n - 2\mathbf{w}_{j}^n + \mathbf{w}_{j-1}^n\big)
+\]
+其中参数$\eta$往往需要通过实际试算来确定. 通过尝试, 发现$\eta$简单地取1.0即可得到效果较好的激波.
+
+\section{数值计算流程}
+采用Lax和蛙跳差分格式计算一维激波管问题流程相似, 附录A程序中的Lax和蛙跳差分格式只是作为一个共同主程序框架下的两个函数.
+这里给出蛙跳差分格式计算一维激波管问题程序的流程图, 如图\ref{CFDflow}. 需要注意的是, 在用蛙跳差分格式计算时, 第一步需要用Lax差分格式估算, 这一过程被封装在 subroutine: leapfrog 中, 因此图\ref{CFDflow}中并没有体现这一过程.
+\begin{figure}[!htb]
+\centering
+%\includegraphics[width=0.7\textwidth]{./fig/CFDflow.pdf}
+\input{./figures/flowcart.tikz}
+\caption{\label{CFDflow}采用蛙跳差分格式计算一维激波管问题程序流程图}
+\end{figure}
+
+\section{计算结果}
+数值计算采用Fortran90语言编写程序, MatLab作后处理(作图), 具体代码见附录. 计算中网格数取$10^4$(本文网格数取的较大, 取500即可), CFL取0.5, 计算总时间为0.2. 计算得到在$T=0.2$时刻的密度, 速度和压力分布.
+
+\subsection{LAX差分格式}
+由LAX差分格式得到的一维激波管问题的密度$\rho$, 压强$p$, 速度$u$空间分布如图\ref{laxline}所示. 从图中可以看出, 与精确解相比(图\ref{exact}), 在激波面和间断面处由于数值耗散效应的作用, 具有被拉宽的现象.
+\begin{figure}[!htb]
+\centering
+%\includegraphics[width=0.644\textwidth]{./animate/lax/laxline.pdf}
+\input{./figures/riemann-lax.tikz}
+\caption{\label{laxline}采用Lax差分格式得到的一维激波管问题的密度$\rho$, 压强$p$, 速度$u$空间分布}
+\end{figure}
+
+图\ref{laxanimate}是Lax差分格式得到的密度$\rho$, 压强$p$, 速度$u$场.
+\begin{figure}[!htb]
+\centering
+\animategraphics[poster = last, width = 0.7\textwidth, autoplay, controls, buttonsize=1em]{10}{./animate/lax/}{0}{219}
+\caption{\label{laxanimate}采用Lax差分格式得到的密度$\rho$, 压强$p$, 速度$u$场}
+\end{figure}
+
+\subsection{蛙跳差分格式}
+计算中发现, 在不采用人工黏性情况下, 当$\Delta x$非常小时(网格点取的较大), 蛙跳差分格式极不稳定, 具有较强的色散, 甚至使程序无法运行(当去掉蛙跳格式的人工黏性项后, 网格数必需取小至1000以内, 否则程序出错). 为了消除数值色散效应, 需要添加人工黏性, 图\ref{leapline}是采用人工黏性的蛙跳差分格式得到的一维激波管问题的密度$\rho$, 压强$p$, 速度$u$空间分布.
+\begin{figure}[!htb]
+\centering
+%\includegraphics[width=0.644\textwidth]{./animate/leap/leapline.pdf}
+\input{./figures/riemann-leap.tikz}
+\caption{\label{leapline}采用蛙跳差分格式得到的一维激波管问题的密度$\rho$, 压强$p$, 速度$u$空间分布}
+\end{figure}
+从图中可以看出,
+经过添加人工粘性后可以明显看到色散现象消失. 与精确解相比(图\ref{exact}), 激波处的间断跳跃现象和激波位置模拟都比较准确.
+图\ref{leapanimate}是蛙跳差分格式得到的密度$\rho$, 压强$p$, 速度$u$场.
+\begin{figure}[!htb]
+\centering
+\animategraphics[poster = last, width = 0.7\textwidth, autoplay, controls, buttonsize=1em]{10}{./animate/leap/}{0}{219}
+\caption{\label{leapanimate}用蛙跳差分格式得到的密度$\rho$, 压强$p$, 速度$u$场}
+\end{figure}
+
+\newpage
+
+\section{结论}
+采用两种不同差分格式所得到的一维激波管问题的计算结果基本与精确解吻合.
+Lax差分格式不需要加入人工黏性就能捕捉激波. 但由于数值耗散, 使计算得到的激波面并不是很陡, 精度并不是很高. 而蛙跳差分格式需要添加人工黏性项, 在人工黏性项辅助下, 能很好地捕捉激波, 计算得到的激波面很陡, 很窄, 计算激波精度是很高的. 采用带开关函数的前置人工滤波法能消除激波附近的非物理振荡, 计算效果很好.
+
+从两种差分格式的结果都可以看出通过激波后气体的密度, 压力和速度都是增加的; 在压力分布中存在第二个台阶, 表明在这里存在一个接触间断, 在接触间断两侧压力是有间断的, 而密度和速度是相等的. 这个计算结果正确地反映了一维激波管问题的物理特性, 并被激波管实验所验证.
+\newpage
+\begin{thebibliography}{99}
+\bibitem{1} 张德良, 计算流体力学教程. 高等教育出版社. 北京, 2011.
+\bibitem{5} Shock tube. http://en.wikipedia.org/wiki/Shock\_tube.
+\bibitem{2} Bernd Freytag, Naples. Introduction to Numerical Hydrodynamics. \\ www.astro.uu.se/~bf/course/numhd\_course\_20100124.pdf
+\bibitem{3} The Wave Equation and Staggered Leapfrog. \\
+http://math.mit.edu/classes/18.086/2006/am53.pdf
+\bibitem{4} Justin Hudson. A Review on the Numerical Solution of the 1D Euler Equations. \\http://eprints.ma.man.ac.uk/150/01/covered/MIMS\_ep2006\_9.pdf
+\end{thebibliography}
+
+
+\newpage
+\appendix
+\appendixpage
+\begin{subappendices}
+\section{shocktube.f90~~\attachfile{./codes/shocktube.f90}}
+\fortranscript{./codes/shocktube}{}
+
+\section{data2figure.m~~\attachfile{./codes/data2figure.m}}
+\matlabscript{./codes/data2figure}{}
+\end{subappendices}
+
+\end{document}

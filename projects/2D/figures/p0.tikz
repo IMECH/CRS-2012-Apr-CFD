@@ -1,0 +1,22 @@
+\pgfplotsset{compat=1.7}
+\begin{tikzpicture}
+\begin{axis}[width=0.65\textwidth,height=0.325\textwidth,
+xlabel={$x$},
+%yticklabels={0.035,0.1,0.2,0.3,0.4,0.5},
+ylabel={$y$},
+xmin=0,xmax=6,ymin=0,ymax=3, 
+yticklabel style={font=\scriptsize},
+xticklabel style={font=\scriptsize},
+xlabel style={font=\footnotesize},
+ylabel style={font=\footnotesize},
+legend style={font=\scriptsize,legend cell align=left},
+]
+
+\addplot graphics [xmin=0,xmax=6,ymin=0,ymax=3]{./figures/p0.pdf};
+\end{axis}
+
+
+
+
+
+\end{tikzpicture}

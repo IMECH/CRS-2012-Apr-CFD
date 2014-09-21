@@ -1,0 +1,29 @@
+\usetikzlibrary{shapes}
+
+
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=9.5em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex]
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=4cm,
+    minimum height=2em]
+    
+\begin{tikzpicture}[node distance = 1.5cm, auto]
+    \node [block] (guess) {Guess $(P^*)^n, (U^*)^n, (V^*)^n$};
+    \node [block,right of=guess,node distance=5cm] (solve) {Solve Momentum eq. for $ (U^*)^{n+1}, (V^*)^{n+1}$};
+    \node [block,below of=guess] (poisson) {Solve Poisson eq. for $(P')$};
+    \node [block,below of=poisson] (pn1) {$P^{n+1} = (P^*)^n+(P')$};
+    \node [block,right of=pn1,node distance=5cm] (un1) {$U^{n+1} = (U^*)^n+(U')$   $V^{n+1} = (V^*)^n+(V')$};
+    \node [block,right of=solve,node distance=5cm] (results) {Visualiz Results};
+
+ \path [line] (guess) -- (solve);
+ \path [line] (solve)++(-1,-0.6) |- (poisson);
+ \path [line] (poisson) -- (pn1);
+\path [line]  (pn1)--(un1);
+
+    \path [line] (un1) --node [midway,right] {if not coverged} (solve);
+    \path [line] (un1) -|node [near start] {if coverged} (results);
+\end{tikzpicture}

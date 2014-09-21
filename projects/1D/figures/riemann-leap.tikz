@@ -1,0 +1,17 @@
+\begin{tikzpicture}
+	\begin{axis}[xmin=0, xmax=1, ymin=0, ymax=1.2, width=0.65\textwidth, height=0.55\textwidth,
+xlabel={$x$},
+ylabel={$\rho, u, p$},
+yticklabel style={font=\small},
+xticklabel style={font=\small},
+%label style={anchor=near ticklabel},
+legend style={legend cell align=left},
+]
+	\addplot[no markers,blue,semithick,smooth] table [x=x,y=rho] {./figures/Riemann-leap.dat};
+        \addlegendentry{density}
+	\addplot[no markers,dashed,semithick,smooth] table [x=x,y=u] {./figures/Riemann-leap.dat};
+        \addlegendentry{volecity}
+	\addplot[no markers,dashdotted,red,semithick,smooth] table [x=x,y=p] {./figures/Riemann-leap.dat};
+        \addlegendentry{pressure}
+	\end{axis}
+\end{tikzpicture}

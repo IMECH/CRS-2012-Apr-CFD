@@ -1,0 +1,156 @@
+\lhead{2012年考试重点}                                                 %
+\problemlist{\bf 计算流体力学2012年考试重点}
+
+%\section{基础概念题}
+\noindent 01. 试分析一维非定常等熵流方程组$\displaystyle\begin{cases}
+\displaystyle\frac{\partial\rho}{\partial t}+u\frac{\partial\rho}{\partial x}+\rho\frac{\partial u}{\partial x}=0\\
+\displaystyle\frac{\partial u}{\partial t}+u\frac{\partial u}{\partial x}+\frac{a^{2}}{\rho}\frac{\partial\rho}{\partial x}=0
+\end{cases}$ 数学性质和类型.
+
+\noindent 令$\mathbf{z}=\left[
+                \begin{array}{c}
+                  \rho \\
+                  u \\
+                \end{array}
+              \right]$
+则一维非定常等熵流方程组可写成
+\[
+\frac{\partial \mathbf{z}}{\partial t}
++
+\left[
+                                          \begin{array}{cc}
+                                            u & \rho \\
+                                            a^2/\rho & u \\
+                                          \end{array}
+                                        \right]
+\frac{\partial \mathbf{z}}{\partial x} = 0
+\]
+ 系数行列式特征方程为
+\[
+ \left|
+\begin{array}{cc}
+u-\lambda & \rho \\
+ a^2/\rho & u-\lambda \\
+ \end{array}
+\right| = 0 \rightarrow
+(u-\lambda)^2 - a^2 = 0 \rightarrow \lambda=u\pm a
+ \]
+为双曲型方程, 特征值为$u\pm a$.
+ \vspace{1em}
+
+\noindent 02. 对流方程, 热传导方程和对流-扩散方程的主要数学物理性质.\\
+对流方程的数学物理性质:
+\begin{itemize}
+\item 它是双曲方程. 反映的流动特性可以用特征线来描述, 流场中扰动沿特征线传播, 在特征线上满足一定相容关系.
+\item 它反映了流动中扰动传播的速度是有限的. 对于线性方程, 当$a>0$时, 扰动沿正方向; 当$a>0$时, 沿负方向.
+\item 扰动波幅不衰减, 波动不变化. 无耗散和色散.
+\item 通解存在依赖区和影响区. 扰动传播范围有限, 不影响全流场.
+\end{itemize}
+扩散方程(热传导方程)的数学物理性质:
+\begin{itemize}
+\item 它是抛物型方程, 有耗散无色散. 描述具有耗散机制的流动现象.
+\item 任何局部扰动都会影响全流场.
+\item 通解依赖于初始时刻粒子密度分布$\phi(\xi)$, 只要初值在$|x|<\infty$内连续有界, 则通解唯一, 连续的存在.
+\item 它存在极值原理, 即如果初值是有界的, 且满足$m\leq \phi(x)\leq M$, 则通解也一定有界, 且满足$m\leq u(x,t)\leq M$
+\end{itemize}
+对流-扩散方程的数学物理性质:
+\begin{itemize}
+\item 它是双曲-抛物型方程. 解单值连续, 且永远存在.
+\item 具有波动特性, 扰动沿特征线传播, 且传播速度是有限的.
+\item 具有黏性流动特性, 有耗散无色散.
+\end{itemize}
+\vspace{1em}
+
+\noindent 03. 什么是差分格式相容性, 收敛性, 稳定性
+\begin{itemize}
+\item 相容性: 对于足够光滑的函数, 若$\Delta x\rightarrow 0$, $\Delta t\rightarrow 0$, 差分方程截断误并$R_j^n$对每一点$(x_j, t_n)$都趋近于0, 则该差分方程$(L\Delta u)_j^n=0$逼近微分方程$L\Delta u=0$, 差分方程与微分方程是相容的.
+\item 收敛性: 节点$(x_p, t_p)$为偏微分方程求解区域$\Omega$内任意一点, 当$x\rightarrow x_p$, $t\rightarrow t_p$时, 差分方程数值解$u_j^n$逼近于微分方程精确解, 即$e_j^n=u-u_j^n=0$, 则差分方程收敛于该偏微分方程.
+\item 稳定性: 在某一时刻$t_n$, 差分方程的计算误差为$\varepsilon_j^n$, 若在$t^{n+1}$时刻满足:
+    \[
+    ||\varepsilon_j^{n+1}|| \leq k||\varepsilon_j^{n}||
+    \]
+    则该差分方程是稳定的.
+\end{itemize}
+\vspace{1em}
+
+\noindent 04. 写出Lax等价定理和Von Neumann准则基本内容.
+\begin{itemize}
+\item Lax等价定理: 对于适定和线性的偏微分方程的初值问题, 若逼近它的差分方程与它是相容的, 则差分方程的稳定性是保证差分方程收敛性的充分必要条件.
+\item Von Neumann准则: 差分方程稳定性必要条件是当$\Delta t\leq \Delta t_0$时, 对于所有的波数$k$有:
+
+    (1) $||G(\Delta t, \Delta x, k)||\leq 1 + K_1 \Delta t$\\
+    (2) $\rho(G)=\max_j|\lambda_j(\Delta t, \Delta x, k)|\leq 1 + K_2\Delta t$
+
+其中$\lambda_j(\Delta t, \Delta x, k)$为差分方程放大矩阵的特征值.
+\end{itemize}
+
+\noindent 05. 简要说明差分方程耗散性和色散性的主要特征和判别公式.
+\begin{itemize}
+\item 耗散效应: 差分方程计算激波时激波被拉宽, 幅度减小, 出现抹平和光滑现象.
+\item 色散效应: 激波上下游出现高频振荡.
+\item 修正方程截断误差的偶阶导数项为耗散项, 奇阶为色散项.
+\item Founier分析法: 偏微分方程放大因子$G_e=|G_e|\mathrm{e}^{\varphi_e}$, 差分方程放大因子$G=|G|\mathrm{e}^{\varphi}$. 则: $\frac{|G|}{|G_e|}>1$负耗散, 不稳定; $\frac{|G|}{|G_e|}<1$正耗散, 稳定; $\frac{\varphi}{\varphi_e}>1$ 正色散, 相位是超前的; $\frac{\varphi}{\varphi_e}<1$ 负色散, 相位是滞后的.
+\end{itemize}
+\vspace{1em}
+
+\noindent 06. 写出非线性发展方程间断形式和商条件, 并说明熵条件几何特性和物理特性.
+\begin{itemize}
+\item 间断形式: 在$\xi$处有间断$x_2<\xi(t)<x_1$, 则有$f^+-f^-=\frac{d\xi}{dt}(u^+-u^-)$.
+\item 熵条件: $u(x,t)$是分片连续可微函数, 在连续区域内满足非线性演化方程$u_t+f_x=0(t>0, -\infty<x<+\infty)$和初始条件$u(x,0)=\phi(x)$, 间断线上满足
+    \[
+    \frac{f(u^{-})-f(u)}{u^{-}-u}
+    \geq
+    \frac{f(u^{+})-f(u^{-})}{u^{+}-u^{-}}
+    \geq
+    \frac{f(u^{+})-f(u)}{u^{+}-u}
+    \]
+\item 熵条件几何特性: 对于曲线$y=f(u)$, $u^+<u<u^-$. 由熵条件不等式左边得:
+    在$(u^+,u^-)$内, $f(u)$位于($u^+,f^+$)和($u^-,f^-$)两点连线下方.
+        由熵条件不等式左右得: 在$(u^-,u^+)$内, $f(u)$位于($u^+,f^+$)和($u^-,f^-$)两点连线上方.
+\item 熵条件物理特性:
+\end{itemize}
+\vspace{1em}
+
+\noindent 07. 什么是守恒方程和守恒差分格式是什么? 它们的相容条件是什么.
+\begin{itemize}
+\item 守恒方程: $u_t+f_x=0$, 初始条件$u(x,0)=\phi(x)$.
+\item 守恒差分格式: $u_j^{n+1}=u_j^n-r(h_{j+1/2}^n-h_{j-1/2}^n)$, 其中$h_{j+1/2}^n=h^n(u_{j-l+1}^n, u_{j-l+2}^n, \cdots, u_{j+l}^n)$, $r=\Delta t/\Delta x$.
+\item 相容条件: $h(w,w,\cdots,w)=f(w)$, 其中$w$是守恒型方程中的一个参数.
+\end{itemize}
+\vspace{1em}
+
+\noindent 08. 什么是单调差分格式和保单调格式? 说明Godunov线性单调格式形式和性质.
+\begin{itemize}
+\item 单调差分格式: 用差分方程解$u_t+au_x=0$, $u(x,0)=\phi(x)$时, 若初始函数是单调非增(非减), 差分格式的解也是单调非增(非减).
+\item 保单调格式:若非线性差分格式$u_j^{n+1}=G(u_{j-l}^n,\cdots, u_{j+l}^n)$在$n$时刻是单调非增(非减), 在$n+1$时刻$u_j^{n+1}$也是单调非增(非减).
+\item Godunov线性单调格式形式及性质:
+\[
+u_j^{n+1} = \sum_k\alpha_ku_{j+k}^n
+\]
+定理: 对于初始条件为$u(x,0)=\phi(x)$的线性对流方程$u_t+au_x=0$:
+\begin{enumerate}
+\item 差分格式$u_j^{n+1} = \sum_k\alpha_ku_{j+k}^n$是单调格式的充要条件是所有的$\alpha_k\geq 0$.
+\item 若$\sum_k\alpha_k=1$, 则单调差分格式是稳定的. 它的数值解收敛于物理解.
+\item 单调差分格式是一阶精度， 并且解也保持单调性.
+\end{enumerate}
+
+\end{itemize}
+
+\vspace{1em}
+\noindent 09. 说明有限体积算法基本思想, 控制单元类型, 离散格式应遵循的四个原则.
+\begin{itemize}
+\item 基本思想: 首先把计算区域近似离散成有限个互不重叠的网格. 围绕每个网格点取一系列互不重叠的控制体单元, 在每个控制体单元中只包含一个节点. 并把待求流动量设置在网格节点上, 然后利用流动量守恒律对每个控制体单元进行积分, 导出一组离散格式. 对它进行求解, 得到流动的数值解.
+\item 控制单元类型: 二维有三解形, 四边形或多边形; 三维有四面体, 锥形体, 楔体, 八面体等.
+\item 四个原则:
+       \begin{enumerate}
+       \item 界面一致性. 相邻控制单元界面上流通量离散格式相同, 确保守恒律.
+       \item 正系数原则. 离散格式中各项系数为正或同号, 确保稳定性和物理解.
+       \item 负斜率原则. 源项线性化时, 系数小于零, 以确保误差不会越来越大.
+       \item 系数和原则. 对无源流动, 中心节点系数为相邻节点系数和.$a_p=\sum a_{nb}$.
+       \end{enumerate}
+\end{itemize}
+\vspace{1em}
+
+\noindent 10. 说明有限体积算法和有限差分算法关系.
+
+对于一维流动问题有限体积算法和有限差分算法完全等价; 对于多统流动问题, 只要控制体单元取矩形(2D), 长方体(3D), 它们基本上也等价. 但如果在多维问题中控制体单元不取矩形(2D), 长方体(3D), 它们并不完全等价.

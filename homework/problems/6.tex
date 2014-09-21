@@ -1,0 +1,71 @@
+\begin{problem}[问题6]
+分析热传导方程$\frac{\partial u}{\partial t} - \beta\frac{\partial^2 u}{\partial x^2} = 0$, $\beta>0$如下差分格式($\sigma = \frac{\beta\Delta t}{\Delta x^2}$)的稳定性:
+\[
+u_j^{n+1} = u_j^{n-1} + \frac{2}{3}\sigma
+\big[
+\delta_x^2 u_j^{n+1} + \delta_x^2 u_j^n + \delta_x^2 u_j^{n-1}
+\big]
+\]
+其中$\delta_x^2 u_j^n = (u_{j+1}^n - 2u_j^n + u_{j-1}^n)$.
+\end{problem}
+
+\begin{solution}
+将$\delta_{x}^{2}u_{j}^{n}=(u_{j+1}^{n}-2u_{j}^{n}+u_{j-1}^{n})$代入原题中的差分方程得
+\[
+u_{j}^{n+1}=u_{j}^{n-1}+\frac{2}{3}\sigma\sum_{k=n-1}^{n+1}(u_{j+1}^{k}-2u_{j}^{k}+u_{j-1}^{k})
+%\big[(u_{j+1}^{n+1}-2u_{j}^{n+1}+u_{j-1}^{n+1})+(u_{j+1}^{n}-2u_{j}^{n}+u_{j-1}^{n})+(u_{j+1}^{n-1}-2u_{j}^{n-1}+u_{j-1}^{n-1})\big]
+\]
+对差分方程中的各项作Fourier展开$u_{j}^{n}=\sum_{k=1}^{\infty}\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}$
+并代入上式得到它的每个分量的误差方程:
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+\hat{u}_{j}^{n+1} & = & \hat{u}_{j}^{n-1}+\frac{2}{3}\sigma(\mathrm{e}^{\mathrm{i}k\Delta x}-2+\mathrm{e}^{-\mathrm{i}k\Delta x})\big[\hat{u}_{j}^{n+1}+\hat{u}_{j}^{n}+\hat{u}_{j}^{n-1}\big]\\
+ & = & \hat{u}_{j}^{n-1}+\frac{4}{3}\sigma(\cos\theta-1)\big[\hat{u}_{j}^{n+1}+\hat{u}_{j}^{n}+\hat{u}_{j}^{n-1}\big]\\
+ & = & A\hat{u}_{j}^{n+1}+A\hat{u}_{j}^{n}+(1+A)\hat{u}_{j}^{n-1}
+\end{eqnarray*}}
+其中$A=\frac{4}{3}\sigma(\cos\theta-1)$. 这是一个三层差分方程, 为此, 引入新变量$v$,
+并令$v_{j}^{n+1}=u_{j}^{n}$, $\mathbf{u}=[u,\, v]^{T}$, 则上式可化为
+\[
+\hat{\mathbf{u}}_{j}^{n+1}=\left[\begin{array}{c}
+\hat{u}_{j}^{n+1}\\
+\hat{v}_{j}^{n+1}
+\end{array}\right]=\left[\begin{array}{cc}
+\frac{A}{1-A} & \frac{1+A}{1-A}\\
+1 & 0
+\end{array}\right]\left[\begin{array}{c}
+\hat{u}_{j}^{n}\\
+\hat{v}_{j}^{n}
+\end{array}\right]
+\]
+特征方程为
+\[
+\left|\begin{array}{cc}
+\frac{A}{1-A}-\lambda & \frac{1+A}{1-A}\\
+1 & -\lambda
+\end{array}\right|=\lambda^{2}+\frac{A}{A-1}\lambda+\frac{A+1}{A-1}=0
+\]
+特征根为
+\begin{align*}
+\lambda_{1,2} & =\frac{-\frac{A}{A-1}\pm\sqrt{\frac{A^{2}}{(A-1)^{2}}-\frac{4(A+1)(A-1)}{(A-1)^{2}}}}{2}=\frac{A\pm\sqrt{A^{2}-4(A^{2}-1)}}{2(1-A)}\\
+ & =\frac{A\pm\sqrt{4-3A^{2}}}{2(1-A)}=\frac{4\sigma(\cos\theta-1)\pm2\sqrt{9-12\sigma^{2}(\cos\theta-1)^{2}}}{6-8\sigma(\cos\theta-1)}
+\end{align*}
+下面分两种情况讨论
+\begin{itemize}
+\item 当$9-12\sigma^{2}(\cos\theta-1)^{2}\geq0$时. 特征方程有两个实根. 有绝对值最大值:
+\begin{align*}
+|\lambda_{\max}| & =\Bigg|\frac{4\sigma(\cos\theta-1)-2\sqrt{9-12\sigma^{2}(\cos\theta-1)^{2}}}{6-8\sigma(\cos\theta-1)}\Bigg|\\
+ & \leq\Bigg|\frac{4\sigma(1-\cos\theta)+2\sqrt{9}}{6+8\sigma(1-\cos\theta)}\Bigg|=\frac{4\sigma(1-\cos\theta)+6}{8\sigma(1-\cos\theta)+6}\\
+ & \leq1
+\end{align*}
+ 此时差分格式恒稳定.
+\item 当$9-12\sigma^{2}(\cos\theta-1)^{2}<0$.特征方程有两个复根.有绝对值最大值:
+\begin{align*}
+|\lambda_{\max}| & =\Bigg[\frac{16\sigma^{2}(\cos\theta-1)^{2}-36+48\sigma^{2}(\cos\theta-1)^{2}}{\big(6+8\sigma(1-\cos\theta)\big)^{2}}\Bigg]^{1/2}\\
+ & =\Bigg[\frac{60\sigma^{2}(1-\cos\theta)^{2}-36}{\big(6+8\sigma(1-\cos\theta)\big)^{2}}\Bigg]^{1/2}\leq\Bigg[\frac{64\sigma^{2}(1-\cos\theta)^{2}-36}{\big(6+8\sigma(1-\cos\theta)\big)^{2}}\Bigg]^{1/2}\\
+ & \leq\sqrt{\frac{8\sigma(1-\cos\theta)-6}{8\sigma(1-\cos\theta)+6}}\\
+ & <1
+\end{align*}
+ 此时差分格式恒稳定.
+\end{itemize}
+综上所述, 对于任何$\sigma=\beta\Delta t/\Delta x^{2}>0$, 该差分格式恒稳定.
+\end{solution}

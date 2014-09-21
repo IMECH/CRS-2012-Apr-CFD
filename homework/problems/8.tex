@@ -1,0 +1,71 @@
+\begin{problem}[问题8]
+用 Taylor 分析法求出对流方程的L-W差分格式:
+\[
+u_j^{n+1} = u_j^n - \frac{1}{2}r\big(u_{j+1}^n - u_{j-1}^n\big) +\frac{1}{2}r^2
+\big(u_{j+1}^n - 2u_j^n + u_{j-1}^n\big)
+\]
+的修正方程, 并求出它的耗散项和色散项的表达式.
+\end{problem}
+
+\vspace{1em}
+\noindent 将$u_{j}^{n+1}$, $u_{j-1}^{n}$, $u_{j-2}^{n}$分别在$u=u_{j}^{n}$展开成泰勒级数
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+u_{j}^{n+1} & = & u_{j}^{n}+\frac{\partial u}{\partial t}\Delta t\:+\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta t^{2}\:+\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{3}\:+\frac{1}{24}\frac{\partial^{4}u}{\partial t^{4}}\Delta t^{4}\:+O(\Delta t^{5}\:)\\
+u_{j+1}^{n\hphantom{+1}} & = & u_{j}^{n}+\frac{\partial u}{\partial x}\Delta x+\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x^{2}+\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{3}+\frac{1}{24}\frac{\partial^{4}u}{\partial x^{4}}\Delta x^{4}+O(\Delta x^{5})\\
+u_{j-1}^{n\hphantom{+1}} & = & u_{j}^{n}-\frac{\partial u}{\partial x}\Delta x+\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x{}^{2}-\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x{}^{3}+\frac{1}{24}\frac{\partial^{4}u}{\partial x^{4}}\Delta x^{4}+O(\Delta x^{5})
+\end{eqnarray*}}
+
+\begin{landscape}
+\begin{solution}
+\noindent 将以上泰勒级数代入差分方程
+\[
+\frac{\partial u}{\partial t}\Delta t+\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta t^{2}+\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{3}+\frac{1}{24}\frac{\partial^{4}u}{\partial t^{4}}\Delta t^{4}+O(\Delta t^{5})=-\frac{1}{2}r\Big[2\frac{\partial u}{\partial x}\Delta x+\frac{1}{3}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{3}+O(\Delta x^{5})\Big]+\frac{1}{2}r^{2}\Big[\frac{\partial^{2}u}{\partial x^{2}}\Delta x^{2}+\frac{1}{12}\frac{\partial^{4}u}{\partial x^{4}}\Delta x^{4}+O(\Delta x^{6})\Big]
+\]
+将$r=a\Delta t/\Delta x$代入上式并整理得
+\[
+0=u_{t}+au_{x}+\frac{1}{2}u_{tt}\Delta t-\frac{1}{2}a^{2}u_{xx}\Delta t+\frac{1}{6}u_{ttt}\Delta t^{2}+\frac{1}{6}au_{xxx}\Delta x^{2}+\frac{1}{24}u_{tttt}\Delta t^{3}-\frac{1}{24}a^{2}u_{xxxx}\Delta x^{2}\Delta t+\cdots
+\]
+采用图表法消元, 消元后可得到下表.
+\begin{table}[!htb]
+\centering
+\caption{\label{tab:08}图表消元法列表}
+\renewcommand\arraystretch{1.9}
+{\scriptsize
+\begin{tabular}{|c|r|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+(a) &  & $u_{t}$ & $u_{x}$ & $u_{tt}$ & $u_{xt}$ & $u_{xx}$ & $u_{ttt}$ & $u_{xtt}$ & $u_{xxt}$ & $u_{xxx}$ & $u_{tttt}$ & $u_{xttt}$ & $u_{xxtt}$ & $u_{xxxt}$ & $u_{xxxx}$\tabularnewline
+\hline
+\hline
+(b) &  & \textcolor{black}{$1$} & \textcolor{red}{$a$} & \textcolor{DarkGreen}{$\frac{\Delta t}{2}$} &  & \textcolor{blue}{$-\frac{a^{2}}{2}\Delta t$} & \textcolor[rgb]{0.6,0.3,0.1}{$\frac{\Delta t^{2}}{6}$} &  &  & \textcolor{magenta}{$\frac{a}{6}\Delta x^{2}$} & \textcolor[rgb]{0.33,0.33,0.33}{$\frac{1}{24}\Delta t^{3}$} &  &  &  & \textcolor[rgb]{0.33,0.33,0.33}{$-\frac{a^{2}}{24}\Delta x^{2}\Delta t$}\tabularnewline
+\hline
+(c) & $-\frac{\Delta t}{2}\frac{\partial}{\partial t}\text{(b)}$ &  &  & \textcolor{black}{$-\frac{\Delta t}{2}$} & \textcolor{red}{$-\frac{a}{2}\Delta t$} &  & \textcolor{DarkGreen}{$-\frac{\Delta t^{2}}{4}$} &  & \textcolor{blue}{$\frac{a^{2}}{4}\Delta t^{2}$} &  & \textcolor[rgb]{0.6,0.3,0.1}{$-\frac{1}{12}\Delta t^{3}$} &  &  & \textcolor{magenta}{$-\frac{a}{12}\Delta x^{2}\Delta t$} & \tabularnewline
+\hline
+(d) & $a\frac{\Delta t}{2}\frac{\partial}{\partial x}\text{(b)}$ &  &  &  & \textcolor{black}{$\frac{a}{2}\Delta t$} & \textcolor{red}{$\frac{a^{2}}{2}\Delta t$} &  & $\frac{a}{4}\Delta t^{2}$ &  & \textcolor{blue}{$-\frac{a^{3}}{4}\Delta t^{2}$} &  & \textcolor[rgb]{0.6,0.3,0.1}{$\frac{a}{12}\Delta t^{3}$} &  &  & \textcolor{magenta}{$\frac{a^{2}}{12}\Delta x^{2}\Delta t$}\tabularnewline
+\hline
+(e) & $\frac{\Delta t^{2}}{12}\frac{\partial^{2}}{\partial t^{2}}\text{(b)}$ &  &  &  &  &  & \textcolor{black}{$\frac{\Delta t^{2}}{12}$} & \textcolor{red}{$\frac{a}{12}\Delta t^{2}$} &  &  & \textcolor{DarkGreen}{$\frac{1}{24}\Delta t^{3}$} &  & \textcolor{blue}{$-\frac{a^{2}}{24}\Delta t^{3}$} &  & \tabularnewline
+\hline
+(f) & $-a\frac{\Delta t^{2}}{3}\frac{\partial^{2}}{\partial t\partial x}\text{(b)}$ &  &  &  &  &  &  & \textcolor{black}{$-\frac{a}{3}\Delta t^{2}$} & \textcolor{red}{$-a^{2}\frac{\Delta t^{2}}{3}$} &  &  & \textcolor{DarkGreen}{$-\frac{a}{6}\Delta t^{3}$} &  & \textcolor{blue}{$\frac{a^{3}}{6}\Delta t^{3}$} & \tabularnewline
+\hline
+(g) & $a^{2}\frac{\Delta t^{2}}{12}\frac{\partial^{2}}{\partial x^{2}}\text{(b)}$ &  &  &  &  &  &  &  & \textcolor{black}{$a^{2}\frac{\Delta t^{2}}{12}$} & \textcolor{red}{$\frac{a^{3}}{12}\Delta t^{2}$} &  &  & \textcolor{DarkGreen}{$\frac{a^{2}}{24}\Delta t^{3}$} &  & \textcolor{blue}{$-\frac{a^{4}}{24}\Delta t^{3}$}\tabularnewline
+\hline
+(h) & $\frac{a}{12}\Delta t^{3}\frac{\partial^{3}}{\partial t^{2}\partial x}\text{(b)}$ &  &  &  &  &  &  &  &  &  &  & \textcolor{black}{$\frac{a}{12}\Delta t^{3}$} & \textcolor{red}{$\frac{a^{2}}{12}\Delta t^{3}$} &  & \tabularnewline
+\hline
+(i) & $-\frac{a^{2}}{12}\Delta t^{3}\frac{\partial^{3}}{\partial x^{2}\partial t}\text{(b)}$ &  &  &  &  &  &  &  &  &  &  &  & \textcolor{black}{$-\frac{a^{2}}{12}\Delta t^{3}$} & \textcolor{red}{$-\frac{a^{3}}{12}\Delta t^{3}$} & \tabularnewline
+\hline
+(j) & $(\frac{a}{12}\Delta x^{2}\Delta t-\frac{a^{3}}{12}\Delta t^{3})\frac{\partial^{3}}{\partial x^{3}}\text{(b)}$ &  &  &  &  &  &  &  &  &  &  &  &  & \textcolor{black}{$\frac{a}{12}\Delta x^{2}\Delta t-\frac{a^{3}}{12}\Delta t^{3}$} & \textcolor{red}{$\frac{a^{2}}{12}\Delta x^{2}\Delta t-\frac{a^{4}}{12}\Delta t^{3}$}\tabularnewline
+\hline
+\hline
+ &  &  &  &  &  &  &  &  &  & $\mathbf{\frac{a}{6}\Delta x^{2}-a^{3}\frac{\Delta t^{2}}{6}}$ &  &  &  &  & $\mathbf{\frac{a^{2}}{8}\Delta x^{2}\Delta t-\frac{a^{4}}{8}\Delta t^{3}}$\tabularnewline
+\hline
+\end{tabular}}
+\end{table}
+
+\noindent 将表\ref{tab:08}中的(b)至(h)相加, 得到差分方程的修正方程(\textcolor{red}{色散项}和\textcolor{blue}{耗散项}已标出):
+\[
+u_{t}+au_{x}=-\big(\frac{a}{6}\Delta x^{2}-a^{3}\frac{\Delta t^{2}}{6}\big)u_{xxx}-\Big(\frac{a^{2}}{8}\Delta x^{2}\Delta t-\frac{a^{4}}{8}\Delta t^{3}\Big)u_{xxxx}+\cdots
+=
+\textcolor{red}{\underbrace{\frac{a\Delta x^{2}}{6}\big(r^{2}-1\big)u_{xxx}}_{\text{色散项}}}+\textcolor{blue}{\underbrace{\frac{a\Delta x^{3}}{8}r\Big(r^{2}-1\Big)u_{xxxx}}_{\text{耗散项}}}+\cdots
+\]
+\end{solution} 
+\end{landscape}

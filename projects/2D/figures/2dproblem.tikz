@@ -1,0 +1,45 @@
+\usetikzlibrary{%
+    decorations.pathreplacing,%
+    decorations.pathmorphing,arrows
+}
+\begin{tikzpicture}[ media/.style={font={\footnotesize\sffamily}},
+    interface/.style={
+        postaction={draw,decorate,decoration={border,angle=-45,
+                    amplitude=0.3cm,segment length=2mm}}},scale=1.5]
+
+\draw[->,>=stealth',semithick,blue] (-0.25,0)node[left]{0.0}--(6.25,0) node[right]{$x$};
+
+\draw[->,>=stealth',semithick,blue] (0,-0.25)node[below]{$0.0$}--(0,3.25) node[above]{$y$};
+
+\draw[semithick,interface](0,0.5)--(1,0.5); 
+\draw[semithick,interface](1,0.5)--(1,0)--(2,0)--(2,0.5);
+\draw[semithick,interface](2,0.5)--(6,0.5);
+
+\draw[semithick,interface](3,2.5)--(0,2.5); 
+\draw[semithick,interface](4,2.5)--(4,3)--(3,3)--(3,2.5);
+\draw[semithick,interface](6,2.5)--(4,2.5);
+
+\draw[semithick,densely dotted,blue](1,0)--(1,-0.25) node[below]{$1.0$} (2,0)--(2,-0.25) node[below]{$2.0$}
+(3,2.5)--(3,-0.25) node[below]{$3.0$} (4,2.5)--(4,-0.25) node[below]{$4.0$} (6,0.5)--(6,-0.25) node[below]{$6.0$};
+
+\draw[semithick,densely dotted,blue](0,0.5)--(-0.25,0.5)node[left]{0.5} (0,2.5)--(-0.25,2.5)node[left]{2.5} (3,3)--(-0.25,3)node[left]{3.0};
+
+\draw[semithick,red,->,>=stealth'](0,0.75)--(0.6,0.75);
+\draw[semithick,red,->,>=stealth'](0,1)--(0.6,1);
+\draw[semithick,red,->,>=stealth'](0,1.25)--(0.6,1.25);
+\draw[semithick,red,->,>=stealth'](0,1.5)--(0.6,1.5);
+\draw[semithick,red,->,>=stealth'](0,1.75)--(0.6,1.75);
+\draw[semithick,red,->,>=stealth'](0,2)--(0.6,2);
+\draw[semithick,red,->,>=stealth'](0,2.25)--(0.6,2.25);
+\draw[semithick,red](0,0.5)--(0.6,0.6)--(0.6,2.4)--(0,2.5);
+
+\node[red,right] at (0.75,1.5) {
+$u=\begin{cases}
+10(x-0.5) & 0.0<x<0.6\\
+1 & 0.6\leq x\leq2.4\\
+10(2.5-x) & 2.4<x<2.5
+\end{cases}$
+};
+
+
+\end{tikzpicture}

@@ -1,0 +1,53 @@
+\begin{problem}[问题3]
+对流方程$\frac{\partial u}{\partial t} + a\frac{\partial u}{\partial x} = 0 ~(a>0)$ 的前半隐差分格式($r=\frac{a\Delta t}{\Delta x}$)为:
+\[
+u_j^{n+1} = u_j^n -\frac{1}{2}r
+\Big[
+\big(u_j^n-u_{j-1}^n\big) + \big(u_{j+1}^{n+1}-u_j^{n+1}\big)
+\Big]
+\]
+分析它的精度和稳定性.
+\end{problem}
+
+\begin{solution}
+\textbf{精度分析:} 将$u_{j}^{n+1}$, $u_{j-1}^{n}$, $u_{j+1}^{n+1}$分别在$u=u_{j}^{n}$展开成泰勒级数
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+u_{j}^{n+1} & = & u_{j}^{n}+\frac{\partial u}{\partial t}\Delta t\:+\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta t^{2}\:+\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{3}\:+\cdots\\
+u_{j-1}^{n} & = & u_{j}^{n}-\frac{\partial u}{\partial x}\Delta x+\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x^{2}-\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{3}+\cdots\\
+%u_{j+1}^{n} & = & u_{j}^{n}+\frac{\partial u}{\partial t}\Delta x+\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta x^{2}+\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta x^{3}+\cdots\\
+u_{j+1}^{n+1} & = & u_{j}^{n}+\Big(\Delta x\frac{\partial}{\partial x}+\Delta t\frac{\partial}{\partial t}\Big)u+\frac{1}{2}\Big(\Delta x\frac{\partial}{\partial x}+\Delta t\frac{\partial}{\partial t}\Big)^{2}u+\frac{1}{6}\Big(\Delta x\frac{\partial}{\partial x}+\Delta t\frac{\partial}{\partial t}\Big)^{3}u+\cdots
+\end{eqnarray*}}\\
+\noindent 因此有
+\[
+\frac{u_{j+1}^{n+1}-u_{j}^{n+1}}{\Delta x}=\frac{\partial u}{\partial x}+\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x+\frac{\partial^{2}u}{\partial x\partial t}\Delta t+\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{2}+\frac{1}{2}\frac{\partial^{3}u}{\partial x\partial t^{2}}\Delta t^{2}+\textcolor{magenta}{\frac{1}{2}\frac{\partial^{3}u}{\partial x^{2}\partial t}\Delta x\Delta t}+\cdots
+\]
+将以上四式代入到差分方程得
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray*}
+ &  & \frac{u_{j}^{n+1}-u_{j}^{n}}{\Delta t}+\frac{a}{2}\Big[\frac{u_{j}^{n}-u_{j-1}^{n}}{\Delta x}+\frac{u_{j+1}^{n+1}-u_{j}^{n+1}}{\Delta x}\Big]\\
+ & = & \frac{\partial u}{\partial t}+\textcolor{red}{\frac{1}{2}\frac{\partial^{2}u}{\partial t^{2}}\Delta t}+\textcolor{blue}{\frac{1}{6}\frac{\partial^{3}u}{\partial t^{3}}\Delta t^{2}}+O(\Delta t^{3})+
+ \frac{a}{2}\Big(\textcolor[rgb]{0.6,0.3,0.1}{\frac{\partial u}{\partial x}}\textcolor[rgb]{0.33,0.33,0.33}{-\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x}+\textcolor{DarkGreen}{\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{2}}+O(\Delta x^{3})\Big)\\
+ &  & \qquad\qquad+\frac{a}{2}\Big(\textcolor[rgb]{0.6,0.3,0.1}{\frac{\partial u}{\partial x}}+\textcolor[rgb]{0.33,0.33,0.33}{\frac{1}{2}\frac{\partial^{2}u}{\partial x^{2}}\Delta x}+\textcolor{red}{\frac{\partial^{2}u}{\partial x\partial t}\Delta t}+\textcolor{DarkGreen}{\frac{1}{6}\frac{\partial^{3}u}{\partial x^{3}}\Delta x^{2}}+\textcolor{blue}{\frac{1}{2}\frac{\partial^{3}u}{\partial x\partial t^{2}}\Delta t^{2}}+\textcolor{magenta}{O(\Delta x\Delta t)}\Big)\\
+ & = & \frac{\partial u}{\partial t}+\textcolor{red}{\frac{1}{2}\Big(\frac{\partial^{2}u}{\partial t^{2}}+a\frac{\partial^{2}u}{\partial x\partial t}\Big)\Delta t}+\textcolor[rgb]{0.6,0.3,0.1}{a\frac{\partial u}{\partial x}}+O(\textcolor{DarkGreen}{\Delta x^{2}}, \textcolor{blue}{\Delta t^2}, \textcolor{magenta}{\Delta x\Delta t})\\
+ & = & \frac{\partial u}{\partial t}+a\frac{\partial u}{\partial x}+O(\Delta x^{2},\Delta t^2, \Delta t\Delta x)
+\end{eqnarray*}}
+因此该差分格式在时间和空间上都是二阶精度.
+
+\vspace{1em}
+\noindent\textbf{稳定性分析:} 对差分方程中的各项作Fourier展开$
+u_{j}^{n}=\sum_{k=1}^{\infty}\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}%,\: u_{j}^{n+1}=\sum_{k=1}^{\infty}\hat{u}_{j}^{n+1}\mathrm{e}^{\mathrm{i}jk\Delta x},\: u_{j\pm1}^{n+1}=\sum_{k=1}^{\infty}\hat{u}_{j\pm1}^{n+1}\mathrm{e}^{\mathrm{i}(j\pm1)k\Delta x}
+$
+并代入原差分方程得到它的每个分量的误差方程:
+\[
+\hat{u}_{j}^{n+1}\mathrm{e}^{\mathrm{i}jk}=\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}-\frac{1}{2}r\Big[\Big(\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}-\hat{u}_{j-1}^{n}\mathrm{e}^{\mathrm{i}(j-1)k\Delta x}\Big)+\Big(\hat{u}_{j+1}^{n+1}\mathrm{e}^{\mathrm{i}(j+1)k\Delta x}-\hat{u}_{j}^{n+1}\mathrm{e}^{\mathrm{i}k\Delta x}\Big)\Big]
+\]
+%\[
+%\frac{\hat{u}_{j}^{n+1}\mathrm{e}^{\mathrm{i}k\Delta x}}{\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}k\Delta x}}=1-\frac{1}{2}r\bigg[\Big(1-\frac{\hat{u}_{j-1}^{n}\mathrm{e}^{\mathrm{i}(j-1)k\Delta x}}{\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}}\Big)+\Big(\frac{\hat{u}_{j+1}^{n+1}\mathrm{e}^{\mathrm{i}(j+1)k\Delta x}}{\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}}-\frac{\hat{u}_{j}^{n+1}\mathrm{e}^{\mathrm{i}jk\Delta x}}{\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}}\Big)\bigg]
+%\]
+放大因子为$G=\hat{u}_{j}^{n+1}/\hat{u}_{j}^{n}$, 则上式可化为
+\[
+G=1-\frac{1}{2}r\Big[\big(1-\mathrm{e}^{-\mathrm{i}k\Delta x}\big)+G\big(\mathrm{e}^{\mathrm{i}k\Delta x}-1\big)\Big]\,\Longrightarrow\,|G|=\bigg|\frac{2-r+r\mathrm{e}^{-\mathrm{i}k\Delta x}}{2-r+r\mathrm{e}^{+\mathrm{i}k\Delta x}}\bigg|=\Big|\frac{\bar{A}}{A}\Big|\equiv1
+\]
+因此该差分格式是弱稳定的.
+\end{solution} 

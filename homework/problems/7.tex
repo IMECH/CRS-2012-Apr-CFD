@@ -1,0 +1,44 @@
+\begin{problem}[问题7]
+分析波动方程$\frac{\partial^2 u}{\partial t^2}-a^2\frac{\partial^2u}{\partial x^2}=0$, $a>0$下列差分格式($r=\frac{a\Delta t}{\Delta x}$)的稳定性:
+\begin{eqnarray}
+u_j^{n+1} &=& \frac{1}{2}\big(u_{j+1}^n+u_{j-1}^n\big) - \frac{1}{2}r\big(v_{j+1}^n-v_{j-1}^n\big)\nonumber\\
+v_j^{n+1} &=& \frac{1}{2}\big(v_{j+1}^n+v_{j-1}^n\big) - \frac{1}{2}r\big(u_{j+1}^n-u_{j-1}^n\big)\nonumber
+\end{eqnarray}
+\end{problem}
+
+\begin{solution}
+对差分方程中的各项作Fourier展开$u_{j}^{n}=\sum_{k=1}^{\infty}\hat{u}_{j}^{n}\mathrm{e}^{\mathrm{i}jk\Delta x}$
+并代入上式得到它的每个分量误差方程的矩阵形式:
+\[
+\left[\begin{array}{c}
+\hat{u}_{j}^{n+1}\\
+\hat{v}_{j}^{n+1}
+\end{array}\right]=\left[\begin{array}{cc}
+\hphantom{-}\frac{1}{2}\hphantom{r}\Big(\mathrm{e}^{\mathrm{i}k\Delta x}+\mathrm{e}^{-\mathrm{i}k\Delta x}\Big) & -\frac{1}{2}r\Big(\mathrm{e}^{\mathrm{i}k\Delta x}-\mathrm{e}^{-\mathrm{i}k\Delta x}\Big)\\
+-\frac{1}{2}r\Big(\mathrm{e}^{\mathrm{i}k\Delta x}-\mathrm{e}^{-\mathrm{i}k\Delta x}\Big) & \hphantom{-}\frac{1}{2}\hphantom{r}\Big(\mathrm{e}^{\mathrm{i}k\Delta x}+\mathrm{e}^{-\mathrm{i}k\Delta x}\Big)
+\end{array}\right]\left[\begin{array}{c}
+\hat{u}_{j}^{n}\\
+\hat{v}_{j}^{n}
+\end{array}\right]
+\]
+上述方程的特征方程为
+\[
+\left|\begin{array}{cc}
+\hphantom{-}\frac{1}{2}\hphantom{r}\Big(\mathrm{e}^{\mathrm{i}k\Delta x}+\mathrm{e}^{-\mathrm{i}k\Delta x}\Big)-\lambda & -\frac{1}{2}r\Big(\mathrm{e}^{\mathrm{i}k\Delta x}-\mathrm{e}^{-\mathrm{i}k\Delta x}\Big)\hphantom{-\lambda}\\
+-\frac{1}{2}r\Big(\mathrm{e}^{\mathrm{i}k\Delta x}-\mathrm{e}^{-\mathrm{i}k\Delta x}\Big)\hphantom{-\lambda} & \hphantom{-}\frac{1}{2}\hphantom{r}\Big(\mathrm{e}^{\mathrm{i}k\Delta x}+\mathrm{e}^{-\mathrm{i}k\Delta x}\Big)-\lambda
+\end{array}\right|=0
+\]
+即
+\[
+\big[\cos\theta-\lambda\big]^{2}-\frac{1}{4}r^{2}\big(2\mathrm{i}\sin\theta\big)^{2}=\lambda^{2}-2\lambda\cos\theta+r^{2}\sin^{2}\theta+\cos^{2}\theta=0
+\]
+特征根为
+\begin{align*}
+\lambda_{1,2} & =\frac{2\cos\theta\pm\sqrt{4\cos^{2}\theta-4(r^{2}\sin^{2}\theta+\cos^{2}\theta)}}{2}=\cos\theta\pm\mathrm{i}\sin\theta r
+\end{align*}
+绝对值最大值为
+\[
+|\lambda_{\max}|=\cos^{2}\theta+r\sin^{2}\theta=1+(r-1)\sin^{2}\theta
+\]
+显然在$0<r<1$的条件下, $|\lambda_{\max}|\leq1$成立, 此时该差分格式是稳定的.
+\end{solution} 

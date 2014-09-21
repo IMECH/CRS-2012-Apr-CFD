@@ -1,0 +1,40 @@
+\usetikzlibrary{shapes,arrows}
+
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=15em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=4cm,
+    minimum height=2em]
+    
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (init) {开始};
+    \node[block, below of=init](initvalue){初始化各参数的值}; 
+    \node[block, below of=initvalue](cfl){根据CFL条件计算时间步差$\Delta t$ \\Function: timestep}; 
+    %\node [cloud, left of=init] (expert) {expert};
+    %\node [cloud, right of=init] (system) {system};
+    \node [block, below of=cfl] (identify) {计算人工黏性项\\Function: artificial\_visc};
+    \node [block, below of=identify] (evaluate) {按照蛙跳格式计算$u_j^{n+1}$\\Subroutine: leapfrog };
+    \node [block, below of=evaluate] (boundary) {根据反射边界条件修正$u_j^{n+1}$\\Subroutine: boundary };
+    \node [cloud, left of=evaluate, node distance=4.5cm] (update) {$t=t+\Delta t$};
+    \node [decision, below of=boundary,node distance=2.5cm] (decide) {$t>t_{\textrm{end}}$?};
+    \node [block, below of=decide, node distance=2.75cm] (stop) {结束并输出结果\\
+Subrountine: output };
+    % Draw edges
+    \path [line] (init) -- (initvalue);
+    \path [line] (initvalue)--(cfl);
+    \path [line] (cfl)--(identify);
+    \path [line] (identify) -- (evaluate);
+    \path [line] (evaluate) -- (boundary);
+    \path [line] (boundary)--(decide);
+    \path [line] (decide) -| node [near start] {yes} (update);
+    \path [line] (update) |- (cfl);
+    \path [line] (decide) -- node {no}(stop);
+    %\path [line,dashed] (expert) -- (init);
+   % \path [line,dashed] (system) -- (init);
+   % \path [line,dashed] (system) |- (evaluate);
+\end{tikzpicture}

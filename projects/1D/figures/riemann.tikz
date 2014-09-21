@@ -1,0 +1,28 @@
+\usetikzlibrary{%
+    decorations.pathreplacing,%
+    decorations.pathmorphing,arrows
+}
+\begin{tikzpicture}[ media/.style={font={\footnotesize\sffamily}},
+    interface/.style={
+        postaction={draw,decorate,decoration={border,angle=-45,
+                    amplitude=0.3cm,segment length=2mm}}},scale=1.5]
+
+\draw[semithick,fill=gray!20](-3.15,-0.15) rectangle (3.15,0.65);
+\fill[red!20](-3,0)rectangle(0,0.5);
+\fill[blue!20] (0,0) rectangle(3,0.5);
+\draw[semithick,interface](-3,0)--(3,0)--(3,0.5)--(-3,0.5)--cycle;
+\draw[semithick,gray](0,0)--(0,0.5);
+\draw[semithick,blue](-1,0)--(-1,0.5) (-2,0)--(-2,0.5) (-1.333,0)--(-1.333,0.5) (-1.666,0)--(-1.666,0.5) (2,0)--(2,0.5);
+\draw[semithick,blue,densely dashed](0.5,0)--(0.5,0.5);
+\node at (-0.8,0.25){$\rho_1, u_1, p_1$};
+\node at (1,0.25){$\rho_2, u_2, p_2$};
+
+\draw[->,>=stealth',semithick] (-3.25,-2)--(3.25,-2) node[right]{$x$};
+\draw[->,>=stealth',semithick] (0,-2)--(0,-0.25);
+\draw[blue,semithick] (-3.25,-0.75)--(3.25,-0.75);
+\draw (0,-2)--(2.4,-0.5)node[left=5pt]{$S$} (0,-2)--(-1.2,-0.5)node[right]{$T$} (0,-2)--(-2,-0.5) (0,-2)--(-2.4,-0.5)node[left]{$L$} (0,-2)--(-1.6,-0.5);
+
+\draw (0,-2)--(2.4,-0.5) (0,-2)--(-1.2,-0.5) (0,-2)--(-2,-0.5) (0,-2)--(-2.4,-0.5) (0,-2)--(-1.6,-0.5);
+\draw[semithick,blue,densely dashed](0,-2)--(0.6,-0.5)node[black,left]{$C$};
+\node[left] at (0,-0.5){$t$};
+\end{tikzpicture}

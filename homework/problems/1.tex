@@ -1,0 +1,207 @@
+\begin{problem}[问题1]
+把有量纲二维定常抛物化N-S方程组:
+\begin{equation}\label{eq:NS01}
+u\frac{\partial\rho}{\partial x}
++ v\frac{\partial\rho}{\partial y}
++ \rho\Big(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y}\Big)
+=0
+\end{equation}
+\begin{equation}\label{eq:NS02}
+u\frac{\partial u}{\partial x} + v\frac{\partial u}{\partial y}
++ \frac{1}{\rho}\frac{\partial p}{\partial x} = \frac{\mu}{\rho}\frac{\partial^2 u}{\partial y^2}
+\end{equation}
+\begin{equation}\label{eq:NS03}
+u\frac{\partial v}{\partial x} + v\frac{\partial v}{\partial y}
++\frac{1}{\rho}\frac{\partial p}{\partial y}
+=\frac{4}{3}\frac{\mu}{\rho}\frac{\partial^2v}{\partial y^2}
+\end{equation}
+\begin{equation}\label{eq:NS04}
+u\frac{\partial T}{\partial x} + v\frac{\partial T}{\partial y}
++(\gamma-1)T\Big(\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y }\Big)
+=\frac{\gamma - 1}{\rho R}N + \frac{\gamma-1}{\rho R}\frac{\partial}{\partial y}\Big(k\frac{\partial T}{\partial y}\Big)
+\end{equation}
+转化成无量纲形式. 其中$N=\mu [ (\frac{\partial u}{\partial y})^2 + \frac{4}{3}(\frac{\partial v}{\partial y})^2]$.
+\end{problem}
+
+\begin{solution}
+引入参考量: 流场中物体特征长度$L_{*}$, 自由来流在$x$方向的速度$u_{*}$, 自由来流的密度$\rho_{*}$和温度$T_{*}$,
+自由来流等熵声速$a_{*}$, 标准状态下重力加速度$g_{*}$. 由此可得定义如下各量纲为一的流动量:
+\[
+\overline{x}=\frac{x}{L_{*}},~~
+\overline{y}=\frac{y}{L_{*}},~~
+\overline{u}=\frac{u}{u_{*}},~~
+\overline{v}=\frac{v}{u_{*}},~~
+\overline{\rho}=\frac{\rho}{\rho_{*}},~~
+\overline{p}=\frac{p}{\rho_{*}u_{*}^{2}},~~
+\overline{\mu}=\frac{\mu}{\mu_{*}},~~
+\overline{T}=\frac{T}{T_{*}}
+\]
+因此有
+\begin{equation}\label{eq:NS05}
+x = \overline{x}L_{*},~
+y = \overline{y}L_{*},~
+u = \overline{u}u_{*},~
+v = \overline{v}u_{*},~
+\rho =\overline{\rho}\rho_{*},~
+p = \overline{p}\rho_{*}u_{*}^{2},~
+\mu = \overline{\mu}\mu_{*},~
+T=\overline{T}T_{*}
+\end{equation}
+下面分别对题中四式无量纲化:
+\begin{itemize}
+\item 将式(\ref{eq:NS05})中的各式代入(\ref{eq:NS01})得
+\[
+\overline{u}u_{*}\frac{\partial\overline{\rho}\rho_{*}}{\partial\overline{x}L_{*}}+\overline{v}u_{*}\frac{\partial\overline{\rho}\rho_{*}}{\partial\overline{y}L_{*}}+\overline{\rho}\rho_{*}\Big(\frac{\partial\overline{u}u_{*}}{\partial\overline{x}L_{*}}+\frac{\partial\overline{v}u_{*}}{\partial\overline{y}L_{*}}\Big) = 0
+\]
+整理得
+\[
+\frac{u_{*}\rho_{*}}{L_{*}}\Big[\overline{u}\frac{\partial\overline{\rho}}{\partial\overline{x}}+\overline{v}\frac{\partial\overline{\rho}}{\partial\overline{y}}+\overline{\rho}\Big(\frac{\partial\overline{u}}{\partial\overline{x}}+\frac{\partial\overline{v}}{\partial\overline{y}}\Big)\Big]=0
+\]
+由于$u_*\rho_*/L_*\neq 0$, 因此可得到(1)式的无量纲形式
+\[
+\overline{u}\frac{\partial\overline{\rho}}{\partial\overline{x}}+\overline{v}\frac{\partial\overline{\rho}}{\partial\overline{y}}+\overline{\rho}\Big(\frac{\partial\overline{u}}{\partial\overline{x}}+\frac{\partial\overline{v}}{\partial\overline{y}}\Big)=0
+\]
+
+\item 将式(\ref{eq:NS05})中的各式代入(\ref{eq:NS02})得
+\[
+\overline{u}u_{*}\frac{\partial\overline{u}u_{*}}{\partial\overline{x}L_{*}}+\overline{v}u_{*}\frac{\partial\overline{v}u_{*}}{\partial\overline{y}L_{*}}+\frac{1}{\overline{\rho}\rho_{*}}\frac{\partial\overline{p}\rho_{*}u_{*}^{2}}{\partial\overline{x}L_{*}}
+=\frac{\overline{\mu}\mu_{*}}{\overline{\rho}\rho_{*}}\frac{\partial^{2}\overline{u}u_{*}}{\partial(\overline{y}L_{*})^{2}}
+\]
+整理得
+\[
+\frac{u_{*}^{2}}{L_{*}}\Big[\overline{u}\frac{\partial\overline{u}}{\partial\overline{x}}+\overline{v}\frac{\partial\overline{v}}{\partial\overline{y}}+\frac{1}{\overline{\rho}}\frac{\partial\overline{p}}{\partial\overline{x}}\Big]
+=\frac{\overline{\mu}\mu_{*}u_{*}}{\overline{\rho}\rho_{*}L_{*}^{2}}\frac{\partial^{2}\overline{u}}{\partial\overline{y}^2}
+\Rightarrow
+\overline{u}\frac{\partial\overline{u}}{\partial\overline{x}}+\overline{v}\frac{\partial\overline{v}}{\partial\overline{y}}+\frac{1}{\overline{\rho}}\frac{\partial\overline{p}}{\partial\overline{x}}
+=\frac{\overline{\mu}\mu_{*}}{\overline{\rho}\rho_{*}u_{*}L_{*}}\frac{\partial^{2}\overline{u}}{\partial\overline{y}^2}
+\]
+其中$\frac{\mu_{*}}{\rho_{*}u_{*}L_{*}}=\frac{1}{Re}$, Re为雷诺数.
+代入上式便可得到(\ref{eq:NS02})式的无量纲形式
+\[
+\overline{u}\frac{\partial\overline{u}}{\partial\overline{x}}+\overline{v}\frac{\partial\overline{v}}{\partial\overline{y}}+\frac{1}{\overline{\rho}}\frac{\partial\overline{p}}{\partial\overline{x}}
+=\frac{\overline{\mu}}{\overline{\rho}\textrm{Re}}\frac{\partial^{2}\overline{u}}{\partial\overline{y}^2}
+\]
+\item 与(\ref{eq:NS02})式的无量纲过程类似, 可得到(\ref{eq:NS03})式的无量纲形式
+\[
+\overline{u}\frac{\partial\overline{v}}{\partial\overline{x}}
++\overline{v}\frac{\partial\overline{v}}{\partial\overline{y}}
++\frac{1}{\overline{\rho}}\frac{\partial\overline{p}}{\partial\overline{y}}
+=\frac{4\overline{\mu}}{\overline{3\rho}\textrm{Re}}\frac{\partial^{2}\overline{v}}{\partial\overline{y}^2}
+\]
+\item 将式(\ref{eq:NS05})中的各式代入(\ref{eq:NS04})中并整理得
+\[
+\frac{u_{*}T_{*}}{L_{*}}\Big[\overline{u}\frac{\partial\overline{T}}{\partial\overline{x}}
++\overline{v}\frac{\partial\overline{T}}{\partial\overline{y}}
++(\gamma-1)\overline{T}\Big(\frac{\partial\overline{u}}{\partial\overline{x}}
++\frac{\partial\overline{v}}{\partial\overline{y}}\Big)\Big]
+=
+\frac{\mu_{*}u_{*}^2}{\rho_{*}L_{*}^{2}}
+\frac{\gamma-1}{\overline{\rho}R}
+\overline{N}
++\frac{k_*T_{*}}{\rho_{*}L_{*}^{2}}
+\frac{\gamma-1}{\overline{\rho}R}
+\frac{\partial}{\partial\overline{y}}
+\Big(\overline{k}\frac{\partial\overline{T}}{\partial\overline{y}}\Big)
+\]
+其中$\overline{N}=\overline{\mu}
+[(\frac{\partial\overline{u}}{\partial\overline{x}})^{2}
++\frac{4}{3}(\frac{\partial\overline{v}}{\partial\overline{y}})^{2}]$. 化简上式得
+\[
+\overline{u}\frac{\partial\overline{T}}{\partial\overline{x}}
++\overline{v}\frac{\partial\overline{T}}{\partial\overline{y}}
++(\gamma-1)\overline{T}\Big(\frac{\partial\overline{u}}{\partial\overline{x}}
++\frac{\partial\overline{v}}{\partial\overline{y}}\Big)
+=
+\underbrace{\textcolor{red}{\frac{\mu_{*}u_{*}}{\rho_{*}L_{*}T_{*}}
+\frac{\gamma-1}{\overline{\rho}R}
+}}_{(a)}\overline{N}
++\underbrace{\textcolor{blue}{\frac{k_*}{\rho_{*}L_{*}u_{*}}
+\frac{\gamma-1}{\overline{\rho}R}}}_{(b)}
+\frac{\partial}{\partial\overline{y}}
+\Big(\overline{k}\frac{\partial\overline{T}}{\partial\overline{y}}\Big)
+\]
+对于(a), 注意到其中$R=\frac{p}{\rho T}=\frac{\overline{p}}{\overline{\rho}\overline{T}}\frac{u_*^2}{T_*}$, 因此可令$R=\overline{R}u_*^2/T_*$. 上式中的(a)项可化为
+\[
+\textcolor{red}{\frac{\mu_{*}u_{*}}{\rho_{*}L_{*}T_{*}}
+\frac{\gamma-1}{\overline{\rho}R}}
+=
+\frac{\mu_{*}u_{*}T_{*}}{\rho_{*}L_{*}T_{*}}
+\frac{\gamma-1}{\overline{\rho}\overline{R}u_{*}^2}
+=
+\frac{\mu_{*}}{\rho_{*}L_{*}u_{*}}
+\frac{\gamma-1}{\overline{\rho}\overline{R}}
+=
+\frac{\gamma-1}{\textrm{Re} \overline{\rho}\overline{R}}
+\]
+对于(b)项, 注意到$R=C_p-C_v$, $\gamma=C_p/C_v$, $\gamma - 1 = (C_p -C_v)/C_v$. 因此(b)项可化为
+{\setlength\arraycolsep{2pt}
+\begin{eqnarray}
+\textcolor{blue}{\frac{k_*}{\rho_{*}L_{*}u_{*}}
+\frac{\gamma-1}{\overline{\rho}R}}
+&=&
+\frac{k_*}{\rho_{*}L_{*}u_{*}}
+\frac{(C_p -C_v)/C_v}{\overline{\rho}(C_p-C_v)}
+=
+\frac{k_*}{\rho_{*}L_{*}u_{*}}
+\frac{1}{C_v\overline{\rho}}
+\nonumber\\
+&=&
+\frac{k_*}{\rho_{*}L_{*}u_{*}}
+\frac{C_p}{C_p C_v\overline{\rho}}
+=
+\frac{\mu_*}{\rho_{*}u_{*}L_{*}}
+\frac{k_*}{\mu_*C_p}
+\frac{\gamma}{\overline{\rho}}
+\nonumber\\
+&=&
+\frac{1}{\textrm{Re}}
+\frac{1}{\textrm{Pr}}
+\frac{\gamma}{\overline{\rho}}\nonumber
+\end{eqnarray}}
+因此, 最终可得(\ref{eq:NS04})式的无量纲形式
+\[
+\overline{u}\frac{\partial\overline{T}}{\partial\overline{x}}
++\overline{v}\frac{\partial\overline{T}}{\partial\overline{y}}
++(\gamma-1)\overline{T}\Big(\frac{\partial\overline{u}}{\partial\overline{x}}
++\frac{\partial\overline{v}}{\partial\overline{y}}\Big)
+=
+\frac{\gamma-1}{\overline{\rho}~\textrm{Re}~\overline{R}}
+\overline{N}+
+\frac{\gamma}{\overline{\rho}~\textrm{Pr}~\textrm{Re}}
+\frac{\partial}{\partial\overline{y}}
+\Big(\overline{k}\frac{\partial\overline{T}}{\partial\overline{y}}\Big)
+\]
+其中$\overline{N}=\overline{\mu}
+[(\frac{\partial\overline{u}}{\partial\overline{x}})^{2}
++\frac{4}{3}(\frac{\partial\overline{v}}{\partial\overline{y}})^{2}]$.
+\end{itemize}
+为了方便, 常常把量纲为一的量上的上画线符号略去, 最终得到二维定常抛物化N-S方程组的无量纲形式:
+\[
+{u}\frac{\partial{\rho}}{\partial{x}}+{v}\frac{\partial{\rho}}{\partial{y}}+{\rho}\Big(\frac{\partial{u}}{\partial{x}}+\frac{\partial{v}}{\partial{y}}\Big)=0
+\]
+\[
+{u}\frac{\partial{u}}{\partial{x}}+{v}\frac{\partial{v}}{\partial{y}}+\frac{1}{{\rho}}\frac{\partial{p}}{\partial{x}}
+=\frac{{\mu}}{{\rho}\textrm{Re}}\frac{\partial^{2}{u}}{\partial{y}^2}
+\]
+\[
+{u}\frac{\partial{v}}{\partial{x}}
++{v}\frac{\partial{v}}{\partial{y}}
++\frac{1}{{\rho}}\frac{\partial{p}}{\partial{y}}
+=\frac{4{\mu}}{{3\rho}\textrm{Re}}\frac{\partial^{2}{v}}{\partial{y}^2}
+\]
+\[
+{u}\frac{\partial{T}}{\partial{x}}
++{v}\frac{\partial{T}}{\partial{y}}
++(\gamma-1){T}\Big(\frac{\partial{u}}{\partial{x}}
++\frac{\partial{v}}{\partial{y}}\Big)
+=
+\frac{\gamma-1}{{\rho}~\textrm{Re}~{R}}
+{N}+
+\frac{\gamma}{{\rho}~\textrm{Pr}~\textrm{Re}}
+\frac{\partial}{\partial{y}}
+\Big({k}\frac{\partial{T}}{\partial{y}}\Big)
+\]
+其中${N}={\mu}
+[(\frac{\partial{u}}{\partial{x}})^{2}
++\frac{4}{3}(\frac{\partial{v}}{\partial{y}})^{2}]$.
+\end{solution} 

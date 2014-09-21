@@ -1,0 +1,59 @@
+\lhead{2011年考试重点}                                                 %
+\problemlist{\bf 高等计算流体力学2011年考试重点\footnote{{\bf 说明:} 这是2011年考试重点, 从一师兄那得来的, 仅供参考, 不代表本人观点.}}
+
+\noindent \textbf{1. 等熵方程的数学性质. $\displaystyle \frac{dS}{dt}=0\:\Rightarrow\: \frac{\partial S}{\partial t}+u\frac{\partial S}{\partial x}=0$}
+\vspace{1em}
+
+\noindent \textbf{2. 对流方程和对流-扩散方程的数学物理性质.}\\
+对流方程的数学物理性质:
+\begin{itemize}
+\item 它是双曲方程. 反映的流动特性可以用特征线来描述, 流场中扰动沿特征线传播, 在特征线上满足一定相容关系.
+\item 它反映了流动中扰动传播的速度是有限的. 对于线性方程, 当$a>0$时, 扰动沿正方向; 当$a>0$时, 没负方向.
+\item 扰动波幅不衰减, 波动不变化. 无耗散和色散.
+\item 通解存在依赖区和影响区. 扰动传播范围有限, 不影响全流场.
+\end{itemize}
+扩散方程的数学物理性质:
+\begin{itemize}
+\item 它是抛物型方程, 有耗散无色散. 描述具有耗散机制的流动现象.
+\item 任何局部扰动都会影响全流场.
+\item 通解依赖于初始时刻粒子密度分布$\phi(\xi)$, 只要初值在$|x|<\infty$内连续有界, 则通解唯一, 连续的存在.
+\item 它存在极值原理, 即如果初值是有界的, 且满足$m\leq \phi(x)\leq M$, 则通解也一定有界, 且满足$m\leq u(x,t)\leq M$
+\end{itemize}
+对流-扩散方程的数学物理性质:
+\begin{itemize}
+\item 它是双曲-抛物型方程. 解单值连续, 且永远存在.
+\item 具有波动特性, 扰动特征线传播, 且传播速度是有限的.
+\item 具有黏性流动特性, 有耗散无色散.
+\end{itemize}
+\vspace{1em}
+
+\noindent \textbf{3. 相容性, 收敛性, 稳定性}
+\begin{itemize}
+\item 相容性: 对于足够光滑的函数, 若$\Delta x\rightarrow 0$, $\Delta t\rightarrow 0$, 差分方程截断误并$R_j^n$对每一点$(x_j, t_n)$都趋近于0, 则该差分方程$(L\Delta u)_j^n=0$逼近微分方程$L\Delta u=0$, 差分方程与微分方程是相容的. 
+\item 收敛性: 节点$(x_p, t_p)$为偏微分方程求解区域$\Omega$内任意一点, 当$x\rightarrow x_p$, $t\rightarrow t_p$时, 差分方程数值解$u_j^n$逼近于微分方程精确解, 即$e_j^n=u-u_j^n=0$, 则差分方程收敛于该偏微分方程. 
+\item 稳定性: 在某一时刻$t_n$, 差分方程的计算误差为$\varepsilon_j^n$, 若在$t^{n+1}$时刻满足:
+    \[
+    ||\varepsilon_j^{n+1}|| \leq k||\varepsilon_j^{n}||
+    \]
+    则该差分方程是稳定的.
+\end{itemize}
+\noindent \textbf{4. Lax等价定理和Von Neumann准则基本内容.}
+\begin{itemize}
+\item Lax等价定理: 对于适定和线性的偏微分方程的初值问题, 若逼近它的差分方程与它是相容的, 则差分方程的稳定性是保证差分方程收敛性的充分必要条件. 
+\item Von Neumann准则: 差分方程稳定性必要条件是当$\Delta t\leq \Delta t_0$时, 对于所有的波数$k$有:
+    
+    (1) $||G(\Delta t, \Delta x, k)||\leq 1 + K_1 \Delta t$\\
+    (2) $\rho(G)=\max_j|\lambda_j(\Delta t, \Delta x, k)|\leq 1 + K_2\Delta t$
+    
+其中$\lambda_j(\Delta t, \Delta x, k)$为差分方程放大矩阵的特征值.
+\end{itemize}
+\noindent \textbf{5. 差分方程耗散性和色散性的主要特征和判别公式.}
+
+\noindent \textbf{6. 非线性发展方程间断形式, 和商条件表达式.}
+
+\noindent \textbf{7. 守恒方程和守恒差分格式是什么? 二者相容条件.}
+
+\noindent \textbf{8. 什么是单调差分格式? 保音调差分格式是什么?}
+
+\noindent \textbf{9. 四项基本原则, 熵条件几何意义.}
+
