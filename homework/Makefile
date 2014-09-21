@@ -1,7 +1,5 @@
 all:
-        rm -f main.pdf
 	xelatex main.tex
-        bibtex main
         xelatex main.tex
 clean:
         find . -name '*.aux' -type f -exec rm -rf {} \;
@@ -13,4 +11,4 @@ clean:
         find . -name '*.snm' -type f -exec rm -rf {} \;
         find . -name '*.toc' -type f -exec rm -rf {} \;
         find . -name '*.vrb' -type f -exec rm -rf {} \;
-
+        find . -name '*.atfi' -type f -exec rm -rf {} \;
